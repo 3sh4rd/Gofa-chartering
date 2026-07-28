@@ -158,10 +158,12 @@
   }
   function addBubble(m) {
     var box = document.getElementById('msgs');
+    if (m.id && box.querySelector('[data-mid="' + m.id + '"]')) return; // dedupe
     if (box.querySelector('.empty')) box.innerHTML = '';
     var d = document.createElement('div');
+    if (m.id) d.dataset.mid = m.id;
     d.className = 'bub ' + (m.sender === 'admin' ? 'admin' : 'customer');
-    d.innerHTML = esc(m.body) + '<small>' + time(m.created_at) + '</small>';
+    d.innerHTML = esc(m.body) + '<small>' + time(m.created_at || Date.now()) + '</small>';
     box.appendChild(d);
     box.scrollTop = box.scrollHeight;
   }
@@ -185,8 +187,9 @@
     if (!body || !activeId) return;
     var c = customers[activeId];
     input.value = '';
-    var r = await sb.from('messages').insert({ customer_id: activeId, auth_uid: c.auth_uid, sender: 'admin', body: body });
+    var r = await sb.from('messages').insert({ customer_id: activeId, auth_uid: c.auth_uid, sender: 'admin', body: body }).select().single();
     if (r.error) { alert('Could not send: ' + r.error.message); input.value = body; }
+    else { addBubble(r.data); }
   });
 
   document.getElementById('loginBtn').addEventListener('click', async function () {
