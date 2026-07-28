@@ -1,12 +1,12 @@
 {
-  "name": "Gofa Bahamas",
-  "short_name": "Gofa",
+  "name": "Aquaholic Adventures",
+  "short_name": "Aquaholic",
   "description": "Private charters and island adventures in Nassau, Bahamas.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a2b4e",
   "theme_color": "#12b6c9",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
