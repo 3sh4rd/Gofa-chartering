@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Admin · Aquaholic Adventures Chat</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0a2b4e;--navy-deep:#071f3a;--teal:#12b6c9;--gold:#f6c31d;--muted:#5b7591;--line:#e2eef5}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',sans-serif;color:#0c2033;background:#eef6fb;height:100vh;display:flex;flex-direction:column}
+  a{color:inherit}
+  header{background:linear-gradient(90deg,var(--navy-deep),var(--navy));color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+  header .b{font-family:'Anton',sans-serif;letter-spacing:1px;font-size:20px}
+  header .b span{color:var(--teal)}
+  header .who{font-size:13px;color:#bcd6ef}
+  header button{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;padding:7px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px}
+
+  /* login */
+  .login{margin:auto;background:#fff;padding:32px;border-radius:16px;box-shadow:0 18px 45px rgba(7,31,58,.18);width:340px;max-width:92vw}
+  .login h1{font-family:'Anton',sans-serif;color:var(--navy);font-size:26px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .login p{color:var(--muted);font-size:13px;margin-bottom:18px}
+  .login input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;font-size:14px;font-family:inherit}
+  .login button{width:100%;background:var(--gold);color:var(--navy-deep);border:none;padding:13px;border-radius:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;cursor:pointer}
+  .err{color:#c0392b;font-size:13px;font-weight:600;min-height:18px;margin-top:4px}
+
+  /* app */
+  .app{flex:1;display:grid;grid-template-columns:320px 1fr;min-height:0}
+  .list{background:#fff;border-right:1px solid var(--line);overflow-y:auto}
+  .list h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:16px 18px 8px}
+  .conv{padding:12px 18px;border-bottom:1px solid var(--line);cursor:pointer}
+  .conv:hover{background:#f4fafd}
+  .conv.active{background:#e7f3fb;border-left:3px solid var(--teal)}
+  .conv b{font-size:14px;color:var(--navy);display:block}
+  .conv small{color:var(--muted);font-size:12px}
+  .conv .no{display:inline-block;background:var(--teal);color:#fff;font-size:10px;font-weight:800;border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+
+  .thread{display:flex;flex-direction:column;min-height:0}
+  .thread .top{padding:14px 20px;border-bottom:1px solid var(--line);background:#fff;font-weight:800;color:var(--navy)}
+  .thread .top small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+  .msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px;background:#eef6fb}
+  .empty{margin:auto;color:var(--muted);text-align:center;font-size:14px}
+  .bub{max-width:70%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.4;box-shadow:0 2px 6px rgba(7,31,58,.06)}
+  .bub small{display:block;font-size:10px;opacity:.6;margin-top:4px}
+  .bub.customer{background:#fff;align-self:flex-start;border-bottom-left-radius:4px}
+  .bub.admin{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .reply{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:#fff}
+  .reply input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit}
+  .reply button{background:var(--gold);border:none;color:var(--navy-deep);font-weight:800;padding:0 22px;border-radius:10px;cursor:pointer}
+  @media(max-width:720px){.app{grid-template-columns:1fr}.list{max-height:38vh}}
+</style>
+</head>
+<body>
+
+<div id="loginView" class="login">
+  <h1>Admin Login</h1>
+  <p>Sign in to view and reply to customer chats.</p>
+  <input id="email" type="email" placeholder="Admin email" autocomplete="username" />
+  <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+  <button id="loginBtn">Log In</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<header id="appHeader" style="display:none">
+  <div class="b">AQUAHOLIC <span>ADMIN</span></div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <span class="who" id="whoami"></span>
+    <button id="logoutBtn">Log out</button>
+  </div>
+</header>
+
+<div class="app" id="appView" style="display:none">
+  <div class="list">
+    <h2>Conversations</h2>
+    <div id="convList"></div>
+  </div>
+  <div class="thread">
+    <div class="top" id="threadTop">Select a conversation</div>
+    <div class="msgs" id="msgs"><div class="empty">Pick a customer on the left to see their chat.</div></div>
+    <form class="reply" id="replyForm" style="display:none">
+      <input id="replyInput" placeholder="Type your reply…" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
+
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  var loginView = document.getElementById('loginView');
+  var appHeader = document.getElementById('appHeader');
+  var appView = document.getElementById('appView');
+  var loginErr = document.getElementById('loginErr');
+
+  if (!window.SUPABASE_URL || window.SUPABASE_URL.indexOf('YOUR_') === 0) {
+    loginErr.textContent = 'Supabase not configured yet — edit supabase-config.js.';
+    return;
+  }
+  var sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+
+  var customers = {};      // id -> customer
+  var activeId = null;
+  var channel = null;
+
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function time(t){return new Date(t).toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+
+  async function showApp(user) {
+    // verify admin
+    var ok = await sb.rpc('is_admin');
+    if (ok.error || ok.data !== true) {
+      await sb.auth.signOut();
+      loginErr.textContent = 'This account is not an admin.';
+      return;
+    }
+    loginView.style.display = 'none';
+    appHeader.style.display = 'flex';
+    appView.style.display = 'grid';
+    document.getElementById('whoami').textContent = user.email;
+    await loadConversations();
+    subscribeAll();
+  }
+
+  async function loadConversations() {
+    var r = await sb.from('customers').select('*').order('created_at', {ascending:false});
+    var list = document.getElementById('convList');
+    list.innerHTML = '';
+    (r.data || []).forEach(function (c) {
+      customers[c.id] = c;
+      var el = document.createElement('div');
+      el.className = 'conv'; el.dataset.id = c.id;
+      el.innerHTML = '<b>' + esc(c.name || 'Guest') + '<span class="no">#' + c.customer_no + '</span></b>' +
+                     '<small>' + esc(c.email || '') + '</small>';
+      el.onclick = function () { openConversation(c.id); };
+      list.appendChild(el);
+    });
+  }
+
+  async function openConversation(id) {
+    activeId = id;
+    document.querySelectorAll('.conv').forEach(function(e){e.classList.toggle('active', e.dataset.id===id);});
+    var c = customers[id];
+    document.getElementById('threadTop').innerHTML = esc(c.name||'Guest') + ' <small>#' + c.customer_no + ' · ' + esc(c.email||'') + '</small>';
+    document.getElementById('replyForm').style.display = 'flex';
+    var r = await sb.from('messages').select('*').eq('customer_id', id).order('created_at', {ascending:true});
+    renderMessages(r.data || []);
+  }
+
+  function renderMessages(rows) {
+    var box = document.getElementById('msgs');
+    box.innerHTML = '';
+    if (!rows.length) { box.innerHTML = '<div class="empty">No messages yet.</div>'; return; }
+    rows.forEach(addBubble);
+    box.scrollTop = box.scrollHeight;
+  }
+  function addBubble(m) {
+    var box = document.getElementById('msgs');
+    if (box.querySelector('.empty')) box.innerHTML = '';
+    var d = document.createElement('div');
+    d.className = 'bub ' + (m.sender === 'admin' ? 'admin' : 'customer');
+    d.innerHTML = esc(m.body) + '<small>' + time(m.created_at) + '</small>';
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function subscribeAll() {
+    if (channel) sb.removeChannel(channel);
+    channel = sb.channel('admin-messages')
+      .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages'}, function (payload) {
+        var m = payload.new;
+        if (m.customer_id === activeId) addBubble(m);
+        if (!customers[m.customer_id]) loadConversations();
+      })
+      .on('postgres_changes', {event:'INSERT', schema:'public', table:'customers'}, function () { loadConversations(); })
+      .subscribe();
+  }
+
+  document.getElementById('replyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var input = document.getElementById('replyInput');
+    var body = input.value.trim();
+    if (!body || !activeId) return;
+    var c = customers[activeId];
+    input.value = '';
+    var r = await sb.from('messages').insert({ customer_id: activeId, auth_uid: c.auth_uid, sender: 'admin', body: body });
+    if (r.error) { alert('Could not send: ' + r.error.message); input.value = body; }
+  });
+
+  document.getElementById('loginBtn').addEventListener('click', async function () {
+    loginErr.textContent = '';
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value;
+    if (!email || !password) { loginErr.textContent = 'Enter your email and password.'; return; }
+    var r = await sb.auth.signInWithPassword({ email: email, password: password });
+    if (r.error) { loginErr.textContent = r.error.message; return; }
+    showApp(r.data.user);
+  });
+  document.getElementById('password').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('loginBtn').click(); });
+  document.getElementById('logoutBtn').addEventListener('click', async function () { await sb.auth.signOut(); location.reload(); });
+
+  // resume existing session
+  sb.auth.getSession().then(function (r) { if (r.data.session) showApp(r.data.session.user); });
+})();
+</script>
+</body>
+</html>

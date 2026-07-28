@@ -114,7 +114,7 @@
   .exp-grid{display:grid;grid-template-columns:210px 1fr 320px;gap:28px;align-items:center}
   .exp .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
   .exp h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;color:var(--navy);text-transform:uppercase;letter-spacing:1px}
-  .exp h2 .g{font-family:'Kaushan Script',cursive;color:var(--teal);text-transform:none;font-size:52px;display:block;margin-top:2px}
+  .exp h2 .g{font-family:'Kaushan Script',cursive;color:var(--teal);text-transform:none;font-size:44px;display:inline-block;margin-top:2px;transform:rotate(-5deg);transform-origin:left center}
   .exp p.d{color:var(--muted);margin:16px 0 24px;font-size:16px}
   .vid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:0}
   .vid{border-radius:12px;min-height:0;aspect-ratio:1/1;position:relative;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:flex-end;cursor:pointer}
@@ -216,6 +216,32 @@
   .wa:hover{transform:translateY(-3px)}
   .wa svg{width:22px;height:22px}
 
+  /* CUSTOMER CHAT WIDGET */
+  .chatw-btn{position:fixed;right:22px;bottom:22px;z-index:90;width:60px;height:60px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;box-shadow:0 12px 30px rgba(246,195,29,.5);display:flex;align-items:center;justify-content:center;transition:transform .18s}
+  .chatw-btn:hover{transform:translateY(-3px)}
+  .chatw-btn svg{width:28px;height:28px;color:var(--navy-deep)}
+  .chatw-panel{position:fixed;right:22px;bottom:92px;z-index:90;width:340px;max-width:calc(100vw - 44px);height:460px;max-height:calc(100vh - 130px);background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(7,31,58,.35);display:flex;flex-direction:column;overflow:hidden}
+  .chatw-panel[hidden]{display:none}
+  .chatw-head{background:linear-gradient(90deg,var(--navy-deep),var(--navy));color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+  .chatw-head b{font-size:15px}.chatw-head small{display:block;color:#9fd7e2;font-size:12px}
+  .chatw-head button{background:transparent;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1}
+  .chatw-pre{padding:18px;display:flex;flex-direction:column;gap:10px}
+  .chatw-pre p{font-size:14px;color:var(--muted)}
+  .chatw-pre input{padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit}
+  .chatw-pre button,.chatw-input button{background:var(--gold);border:none;color:var(--navy-deep);font-weight:800;border-radius:10px;cursor:pointer}
+  .chatw-pre button{padding:12px;text-transform:uppercase;letter-spacing:.5px}
+  .chatw-err{color:#c0392b;font-size:12px;font-weight:600;min-height:14px}
+  .chatw-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;background:#eef6fb}
+  .chatw-msgs[hidden]{display:none}
+  .cbub{max-width:80%;padding:9px 12px;border-radius:13px;font-size:13.5px;line-height:1.4}
+  .cbub.customer{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .cbub.admin{background:#fff;color:#0c2033;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 2px 6px rgba(7,31,58,.08)}
+  .chatw-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  .chatw-input[hidden]{display:none}
+  .chatw-input input{flex:1;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit}
+  .chatw-input button{padding:0 18px}
+  :root{--line:#e2eef5}
+
   @media(max-width:1000px){
     nav.main{display:none}
     .hero-grid{grid-template-columns:1fr}
@@ -287,6 +313,7 @@
     <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-8-4.7-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6.3-8 11-8 11Z"/></symbol>
     <symbol id="i-crew" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 20a7 7 0 0 1 14 0"/></symbol>
     <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1.9-.6-3.3-1.9-4.6-3.8-.5-.7-.9-1.5-.9-2.4 0-.8.4-1.2.6-1.4.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.4.5c-.1.1-.2.3-.1.5.4.8 1 1.4 1.8 1.9.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.5-.1l1.5.8c.2.1.3.2.3.4.1.3.1.6-.1.9Z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12Z"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M8.5 11h7M8.5 14h4"/></symbol>
   </defs>
 </svg>
 
@@ -464,6 +491,27 @@
 
 <a class="wa" href="https://wa.me/12424275699"><svg><use href="#i-wa"/></svg>Chat on WhatsApp</a>
 
+<!-- CUSTOMER CHAT WIDGET (Supabase) -->
+<button id="chatToggle" class="chatw-btn" aria-label="Chat with us"><svg><use href="#i-chat"/></svg></button>
+<div id="chatPanel" class="chatw-panel" hidden>
+  <div class="chatw-head">
+    <div><b>Chat with Aquaholic</b><small>We usually reply quickly</small></div>
+    <button id="chatClose" aria-label="Close">&times;</button>
+  </div>
+  <div id="chatPre" class="chatw-pre">
+    <p>Hi! 👋 Leave your name and email and we'll help you plan your Bahamas trip.</p>
+    <input id="chatName" placeholder="Your name" />
+    <input id="chatEmail" type="email" placeholder="Your email" />
+    <button id="chatStart" type="button">Start Chat</button>
+    <div class="chatw-err" id="chatErr"></div>
+  </div>
+  <div id="chatBody" class="chatw-msgs" hidden></div>
+  <form id="chatForm" class="chatw-input" hidden>
+    <input id="chatInput" placeholder="Type a message…" autocomplete="off" />
+    <button type="submit">Send</button>
+  </form>
+</div>
+
 <script>
 (function () {
   // ===========================================================================
@@ -566,6 +614,92 @@
 
   handle('bookingForm', 'bookingMsg', 'New Booking Request - Gofa Bahamas');
   handle('contactForm', 'contactMsg', 'New Contact Message - Gofa Bahamas');
+})();
+</script>
+
+<!-- Supabase live chat (customer side) -->
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  var toggle = document.getElementById('chatToggle');
+  var panel  = document.getElementById('chatPanel');
+  var pre    = document.getElementById('chatPre');
+  var body   = document.getElementById('chatBody');
+  var form   = document.getElementById('chatForm');
+  var errEl  = document.getElementById('chatErr');
+
+  // Show the chat button only if Supabase is configured
+  if (!window.SUPABASE_URL || window.SUPABASE_URL.indexOf('YOUR_') === 0) {
+    if (toggle) toggle.style.display = 'none';
+    return;
+  }
+  var sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  var customer = null, channel = null, started = false;
+
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function bubble(m){
+    if(body.querySelector('.empty')) body.innerHTML='';
+    var d=document.createElement('div');
+    d.className='cbub '+(m.sender==='admin'?'admin':'customer');
+    d.innerHTML=esc(m.body);
+    body.appendChild(d); body.scrollTop=body.scrollHeight;
+  }
+
+  toggle.addEventListener('click', function(){
+    var open = panel.hasAttribute('hidden');
+    if(open){ panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden',''); }
+  });
+  document.getElementById('chatClose').addEventListener('click', function(){ panel.setAttribute('hidden',''); });
+
+  async function ensureSession(){
+    var s = await sb.auth.getSession();
+    if(!s.data.session){ var a = await sb.auth.signInAnonymously(); if(a.error) throw a.error; }
+  }
+
+  async function startChat(name, email){
+    errEl.textContent='';
+    try{
+      await ensureSession();
+      var uid = (await sb.auth.getUser()).data.user.id;
+      // find existing customer for this device/uid, else create
+      var found = await sb.from('customers').select('*').eq('auth_uid', uid).maybeSingle();
+      customer = found.data;
+      if(!customer){
+        var ins = await sb.from('customers').insert({ auth_uid: uid, name: name, email: email }).select().single();
+        if(ins.error) throw ins.error;
+        customer = ins.data;
+      }
+      started = true;
+      pre.style.display='none';
+      body.removeAttribute('hidden'); form.removeAttribute('hidden');
+      var msgs = await sb.from('messages').select('*').eq('customer_id', customer.id).order('created_at',{ascending:true});
+      body.innerHTML='';
+      if(!(msgs.data||[]).length){ body.innerHTML='<div class="empty" style="margin:auto;color:#5b7591;font-size:13px">Say hello — how can we help?</div>'; }
+      (msgs.data||[]).forEach(bubble);
+      channel = sb.channel('cust-'+customer.id)
+        .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'customer_id=eq.'+customer.id}, function(p){ if(p.new.sender==='admin') bubble(p.new); })
+        .subscribe();
+    }catch(e){ errEl.textContent = e.message || 'Could not start chat.'; }
+  }
+
+  document.getElementById('chatStart').addEventListener('click', function(){
+    var name=document.getElementById('chatName').value.trim();
+    var email=document.getElementById('chatEmail').value.trim();
+    if(!name||!email){ errEl.textContent='Please add your name and email.'; return; }
+    startChat(name,email);
+  });
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var input=document.getElementById('chatInput');
+    var text=input.value.trim();
+    if(!text||!customer) return;
+    input.value='';
+    bubble({sender:'customer',body:text});
+    var r=await sb.from('messages').insert({ customer_id:customer.id, auth_uid:customer.auth_uid, sender:'customer', body:text });
+    if(r.error){ errEl.textContent=r.error.message; }
+  });
 })();
 </script>
 
