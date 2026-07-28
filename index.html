@@ -636,26 +636,26 @@
     return;
   }
   var sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-  var customer = null, channel = null, started = false, notified = false;
+  var customer = null, channel = null, started = false, firstSent = false;
   var NOTIFY_KEY = '89cffda6-9b12-4a03-8a36-5783d659d427'; // Web3Forms key -> emails gofabahamas@gmail.com
 
-  function notifyAdmin(firstMessage) {
-    if (notified || !customer) return;
-    notified = true;
+  function notifyAdmin(messageText) {
+    if (!customer) return;
+    var isFirst = !firstSent; firstSent = true;
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: NOTIFY_KEY,
-        subject: 'New website chat — Aquaholic Adventures',
+        subject: (isFirst ? 'New website chat' : 'New chat message') + ' — ' + (customer.name || 'Guest') + ' (#' + customer.customer_no + ')',
         from_name: 'Aquaholic Website Chat',
         name: customer.name || 'Guest',
         email: customer.email || '',
-        message: 'A new chat just started on the website.\n\n' +
+        message: (isFirst ? 'A new chat just started on the website.\n\n' : '') +
                  'Customer #' + customer.customer_no + '\n' +
                  'Name: ' + (customer.name || '') + '\n' +
                  'Email: ' + (customer.email || '') + '\n\n' +
-                 'First message: ' + firstMessage + '\n\n' +
+                 'Message: ' + messageText + '\n\n' +
                  'Reply in your admin dashboard: https://aquaholicadventurebahamas.com/admin'
       })
     }).catch(function () { /* non-blocking */ });
