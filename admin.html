@@ -122,6 +122,7 @@
     document.getElementById('whoami').textContent = user.email;
     await loadConversations();
     subscribeAll();
+    startPolling();
   }
 
   async function loadConversations() {
@@ -132,11 +133,24 @@
       customers[c.id] = c;
       var el = document.createElement('div');
       el.className = 'conv'; el.dataset.id = c.id;
+      if (c.id === activeId) el.classList.add('active');
       el.innerHTML = '<b>' + esc(c.name || 'Guest') + '<span class="no">#' + c.customer_no + '</span></b>' +
                      '<small>' + esc(c.email || '') + '</small>';
       el.onclick = function () { openConversation(c.id); };
       list.appendChild(el);
     });
+  }
+
+  // Backup polling so new customer messages always arrive even if realtime drops them
+  var polling = false;
+  function startPolling() {
+    if (polling) return; polling = true;
+    setInterval(async function () {
+      if (!activeId) return;
+      var r = await sb.from('messages').select('*').eq('customer_id', activeId).order('created_at', {ascending:true});
+      (r.data || []).forEach(addBubble); // addBubble dedupes by id
+    }, 1200);
+    setInterval(loadConversations, 12000);
   }
 
   async function openConversation(id) {
