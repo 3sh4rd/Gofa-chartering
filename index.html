@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gofa Bahamas | The Ultimate Bahamas Charter & Adventure</title>
+<meta name="description" content="Gofa Bahamas: private charters, swim with pigs, snorkel with turtles, ATV adventures and deep sea fishing in Nassau, Bahamas." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#12b6c9" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a2b4e;--navy-deep:#071f3a;--teal:#12b6c9;--teal-light:#3fd3e0;
+    --aqua:#25c9d6;--gold:#f6c31d;--gold-deep:#e5a70a;--white:#ffffff;
+    --ink:#0c2033;--muted:#5b7591;--shadow:0 18px 45px rgba(7,31,58,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Montserrat','Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.55;overflow-x:hidden}
+  h1,h2,h3,h4{line-height:1.05;letter-spacing:-.5px}
+  .display{font-family:'Anton',Impact,'Arial Narrow Bold',sans-serif;font-weight:400;letter-spacing:.5px}
+  .script{font-family:'Kaushan Script',cursive;font-weight:400;letter-spacing:0}
+  .hero h1 .big{filter:url(#grunge)}
+  .sec-head h2,.about h2,.tcard h3,.book-card h3{filter:url(#rugged)}
+  .rug{filter:url(#rugged);display:inline-block}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 22px}
+  .gold{color:var(--gold)}
+  svg{display:block}
+  .ico{width:22px;height:22px;flex:0 0 auto}
+  .ico-lg{width:30px;height:30px}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--navy-deep);font-weight:800;text-transform:uppercase;letter-spacing:.6px;padding:15px 30px;border-radius:12px;cursor:pointer;border:none;transition:transform .18s,box-shadow .18s;box-shadow:0 10px 24px rgba(246,195,29,.35)}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(246,195,29,.5)}
+  .btn svg{width:18px;height:18px}
+  .btn-outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.7);box-shadow:none}
+  .btn-outline:hover{background:rgba(255,255,255,.15);box-shadow:none}
+
+  /* HEADER */
+  header{position:absolute;top:0;left:0;right:0;z-index:60;background:linear-gradient(180deg,rgba(6,26,48,.55),rgba(6,26,48,0))}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-logo{height:56px;width:auto;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.35))}
+  .brand .logo{width:44px;height:44px}
+  .brand .txt{display:flex;flex-direction:column;line-height:.9}
+  .brand .b1{font-size:28px;font-weight:900;color:var(--white);letter-spacing:1px}
+  .brand .b1 span{color:var(--teal-light)}
+  .brand .b2{font-size:10px;letter-spacing:5px;color:var(--gold);font-weight:700;margin-top:3px}
+  nav.main{display:flex;gap:24px;align-items:center}
+  nav.main a{color:#e7f3ff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;transition:color .15s}
+  nav.main a:hover{color:var(--gold)}
+  .head-contact{display:flex;align-items:center;gap:16px}
+  .head-contact .phone{color:var(--white);font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px}
+  .head-contact .phone svg{width:18px;height:18px;color:var(--gold)}
+
+  /* HERO */
+  .hero{position:relative;color:#fff;background:
+      linear-gradient(90deg,rgba(7,31,58,.86) 0%,rgba(9,52,88,.55) 45%,rgba(10,79,134,.25) 100%),
+      linear-gradient(180deg,rgba(10,43,78,0) 55%,rgba(10,43,78,.55) 100%),
+      url("charter%20image.jpg");
+    background-size:cover;background-position:center 35%;background-repeat:no-repeat;
+    padding:104px 0 200px;overflow:visible}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start;position:relative;z-index:2}
+  .kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);padding:6px 16px;border-radius:30px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+  .kicker svg{width:16px;height:16px;color:var(--gold)}
+  .hero h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:40px;text-transform:uppercase;text-shadow:0 6px 24px rgba(0,0,0,.35);letter-spacing:1px}
+  .hero h1 .big{display:block;font-size:82px;line-height:.92;letter-spacing:2px}
+  .hero h1 .script{display:block;font-family:'Kaushan Script',cursive;color:var(--gold);font-size:60px;text-transform:none;letter-spacing:0;margin-top:4px}
+  .hero p.lead{font-size:20px;font-weight:600;margin:20px 0 8px;max-width:520px}
+  .hero .sub{font-size:16px;opacity:.9;max-width:520px}
+  .hero-cta{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+  .badges{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+  .badge{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+  .badge svg{width:24px;height:24px;color:var(--gold)}
+
+  .book-card{background:linear-gradient(180deg,#0c355e,#0a2b4e);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+  .book-card h3{font-family:'Anton',Impact,sans-serif;font-weight:400;color:#fff;font-size:23px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px}
+  .book-card h3 .g{color:var(--gold)}
+  .field{display:flex;align-items:center;gap:12px;background:#0f4272;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#cfe4f7;font-weight:600;font-size:14px}
+  .field svg{width:20px;height:20px;color:var(--gold);flex:0 0 auto}
+  .field select,.field input{background:transparent;border:none;color:#eaf4ff;font-size:14px;width:100%;outline:none;font-weight:600}
+  .field select option{color:#0a2b4e}
+  .book-card .btn{width:100%;margin-top:6px;justify-content:center}
+  .assur{display:flex;gap:18px;justify-content:center;margin-top:16px;font-size:12px;color:#bcd6ef;font-weight:600}
+  .assur span{display:flex;align-items:center;gap:6px}
+  .assur svg{width:15px;height:15px;color:var(--gold)}
+
+  /* TOURS */
+  .tours{background:transparent;padding:0 0 14px;position:relative;z-index:5}
+  .sec-head{text-align:center;max-width:720px;margin:0 auto 42px}
+  .sec-head .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
+  .sec-head h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:44px;color:var(--navy);margin:10px 0;text-transform:uppercase;letter-spacing:1px}
+  .sec-head p{color:var(--muted);font-size:16px}
+  .card-row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:-165px;position:relative;z-index:6}
+  .tours-head{margin-top:52px !important;margin-bottom:0 !important}
+  .tcard{position:relative;border-radius:18px;overflow:hidden;min-height:360px;color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .2s}
+  .tcard:hover{transform:translateY(-6px)}
+  .tcard .scene{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+  .tcard .ov{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,26,48,0) 45%,rgba(6,26,48,.9))}
+  .tcard .inner{position:relative;z-index:2;padding:18px}
+  .tcard h3{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:21px;letter-spacing:.6px;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .tcard .price{color:var(--gold);font-weight:900;font-size:15px;margin-top:6px}
+  .tcard .meta{display:flex;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);font-size:11px;font-weight:700}
+  .tcard .meta span{display:flex;align-items:center;gap:5px}
+  .tcard .meta svg{width:14px;height:14px}
+
+  /* EXPERIENCE + UPGRADES */
+  .exp{padding:12px 0 18px;background:#fff}
+  .exp-grid{display:grid;grid-template-columns:210px 1fr 330px;gap:28px;align-items:start}
+  .exp .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
+  .exp h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;color:var(--navy);text-transform:uppercase;letter-spacing:1px}
+  .exp h2 .g{font-family:'Kaushan Script',cursive;color:var(--teal);text-transform:none;font-size:46px}
+  .exp p.d{color:var(--muted);margin:16px 0 24px;font-size:16px}
+  .vid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:0}
+  .vid{border-radius:14px;min-height:175px;position:relative;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:flex-end;cursor:pointer}
+  .vid .scene{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+  .vid video.scene{object-fit:cover;background:#0a2b4e}
+  .vid .lbl{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:800;text-transform:uppercase;padding:12px;text-shadow:0 2px 6px rgba(0,0,0,.5);transition:opacity .25s}
+  .vid .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;transition:opacity .25s}
+  .vid .play svg{width:46px;height:46px;color:#fff;opacity:.92;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));transition:transform .18s}
+  .vid:hover .play svg{transform:scale(1.12)}
+  .vid .ovl{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,26,48,.05),rgba(6,26,48,.6));z-index:1;transition:opacity .25s}
+  .vid.playing .play,.vid.playing .ovl,.vid.playing .lbl{opacity:0;pointer-events:none}
+
+  .upsell{background:#fdf7ec;border:1px solid #f0e6d2;border-radius:20px;padding:22px 24px;color:var(--ink);box-shadow:var(--shadow)}
+  .upsell h3{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:26px;letter-spacing:.6px;text-transform:uppercase;color:var(--navy)}
+  .upsell h3 .g{font-family:'Kaushan Script',cursive;color:var(--gold-deep);text-transform:none;font-size:28px}
+  .upsell .s{color:var(--muted);font-size:14px;margin-bottom:12px}
+  .up-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(10,43,78,.1)}
+  .up-item:last-child{border-bottom:none}
+  .up-item .l{display:flex;align-items:center;gap:14px}
+  .up-item .l .ib{width:42px;height:42px;border-radius:11px;background:rgba(246,195,29,.2);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .up-item .l .ib svg{width:22px;height:22px;color:var(--gold-deep)}
+  .up-item .l .t b{display:block;font-size:14px;color:var(--navy)}
+  .up-item .l .t small{color:var(--muted);font-size:12px}
+  .up-item .p{color:var(--gold-deep);font-weight:900;font-size:15px;white-space:nowrap}
+
+  /* FEATURES */
+  .features{position:relative;background:linear-gradient(180deg,#0a4f86,#0a2b4e);padding:104px 0 30px;overflow:hidden}
+  .wave-top{position:absolute;top:-1px;left:0;width:100%;height:88px;display:block}
+  .feat-foot{margin-top:30px;text-align:center;color:#8fb0cf;font-size:13px;font-weight:600;letter-spacing:.3px}
+  .feat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .feat{display:flex;align-items:center;gap:12px;color:#fff;justify-content:center}
+  .feat .fi{width:46px;height:46px;border-radius:12px;background:rgba(246,195,29,.15);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .feat .fi svg{width:26px;height:26px;color:var(--gold)}
+  .feat b{display:block;font-size:14px;text-transform:uppercase;font-weight:900;letter-spacing:.4px}
+  .feat small{color:#bcd6ef;font-size:12px}
+
+  /* ABOUT */
+  .about{padding:70px 0;background:#eef6fb}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .about .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
+  .about h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin:10px 0 16px}
+  .about p{color:#40597a;font-size:16px;margin-bottom:14px}
+  .stat-row{display:flex;gap:26px;margin-top:22px}
+  .stat b{display:block;font-size:34px;color:var(--teal);font-weight:900}
+  .stat small{color:var(--muted);font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.5px}
+  .about-visual{border-radius:22px;min-height:400px;overflow:hidden;box-shadow:var(--shadow)}
+  .about-visual svg{width:100%;height:100%}
+
+  /* REVIEWS */
+  .reviews{padding:66px 0;background:#fff}
+  .rev-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:38px}
+  .rev{background:#f4fafd;border:1px solid #e2eef5;border-radius:18px;padding:26px;box-shadow:0 8px 22px rgba(7,31,58,.06)}
+  .rev .stars{display:flex;gap:3px;color:var(--gold)}
+  .rev .stars svg{width:18px;height:18px}
+  .rev p{color:#40597a;font-style:italic;margin:12px 0 16px;font-size:15px}
+  .rev .who{display:flex;align-items:center;gap:12px}
+  .rev .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(160deg,#12b6c9,#0a4f86);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900}
+  .rev .who b{font-size:14px;color:var(--navy)}
+  .rev .who small{color:var(--muted);font-size:12px}
+
+  /* CTA */
+  .cta{padding:70px 0;color:#fff;text-align:center;position:relative;background:radial-gradient(120% 120% at 50% 0%,rgba(63,211,224,.4),transparent 60%),linear-gradient(180deg,#0e7fb0,#0a2b4e)}
+  .cta h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:50px;text-transform:uppercase;letter-spacing:1px}
+  .cta h2 .g{font-family:'Kaushan Script',cursive;color:var(--gold);text-transform:none;font-size:54px}
+  .cta p{font-size:18px;opacity:.92;margin:14px 0 26px}
+  .cta .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+  /* CONTACT */
+  .contact-sec{padding:70px 0;background:#eef6fb}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .contact-info .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
+  .contact-info h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin:10px 0 14px}
+  .contact-info p{color:#40597a;font-size:16px;margin-bottom:22px}
+  .contact-info .contact-line{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:16px;color:var(--navy);font-weight:700}
+  .contact-info .contact-line svg{width:20px;height:20px;color:var(--teal);flex:0 0 auto}
+  .contact-card{background:linear-gradient(180deg,#0c355e,#0a2b4e);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+  .contact-card .field textarea{background:transparent;border:none;color:#eaf4ff;font-size:14px;width:100%;outline:none;font-weight:600;font-family:inherit;resize:vertical}
+  .contact-card .field textarea::placeholder,.contact-card .field input::placeholder,.book-card .field input::placeholder{color:#8fb0cf}
+  .field-area{align-items:flex-start}
+  .contact-card .btn,.contact-card button.btn{width:100%;justify-content:center;margin-top:4px}
+  .form-msg{font-size:13px;font-weight:700;margin-top:12px;text-align:center;min-height:18px}
+  .form-msg.ok{color:#7ff0b0}
+  .form-msg.err{color:#ffb3a8}
+  button.btn{font-family:inherit;font-size:14px}
+
+  /* FOOTER */
+  footer{background:var(--navy-deep);color:#cfe0f0;padding:56px 0 24px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  .foot p{color:#9fb9d4;font-size:14px;margin-top:14px;max-width:340px}
+  .foot h4{color:#fff;text-transform:uppercase;font-size:14px;letter-spacing:1px;margin-bottom:16px}
+  .foot ul{list-style:none}
+  .foot ul li{margin-bottom:10px;font-size:14px}
+  .foot ul li a:hover{color:var(--gold)}
+  .foot .contact-line{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:15px;color:#e7f3ff;font-weight:600}
+  .foot .contact-line svg{width:18px;height:18px;color:var(--gold);flex:0 0 auto}
+  .copyright{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:20px;text-align:center;font-size:13px;color:#7f9ac0}
+
+  .wa{position:fixed;right:22px;bottom:22px;z-index:80;background:#25d366;color:#fff;padding:14px 20px;border-radius:40px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(37,211,102,.5);cursor:pointer;transition:transform .18s}
+  .wa:hover{transform:translateY(-3px)}
+  .wa svg{width:22px;height:22px}
+
+  @media(max-width:1000px){
+    nav.main{display:none}
+    .hero-grid{grid-template-columns:1fr}
+    .hero h1{font-size:48px}.hero h1 .yellow{font-size:54px}
+    .card-row{grid-template-columns:repeat(2,1fr);margin-top:36px}
+    .exp-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+    .vid-row{grid-template-columns:repeat(2,1fr)}
+    .feat-row{grid-template-columns:repeat(2,1fr)}
+    .rev-row{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .card-row{grid-template-columns:1fr}
+    .vid-row{grid-template-columns:1fr}
+    .hero h1{font-size:38px}.hero h1 .yellow{font-size:42px}
+    .head-contact .phone{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable SVG symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- rugged / distressed text filters -->
+    <filter id="grunge" x="-8%" y="-25%" width="116%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="3" seed="6" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="8" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.75 0.85" numOctaves="2" seed="12" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3 1.35" result="grainA"/>
+      <feComposite in="disp" in2="grainA" operator="out"/>
+    </filter>
+    <filter id="rugged" x="-4%" y="-12%" width="108%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.02" numOctaves="2" seed="3" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- icons -->
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m3 6 9 7 9-7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 9h18M8 2v4M16 2v4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1A4 4 0 0 1 16 11"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path fill="currentColor" d="m16.2 7.8-2.9 6.5-6.5 2.9 2.9-6.5 6.5-2.9Z" opacity=".9"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z"/></symbol>
+    <symbol id="i-badge" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m20 6-11 11-5-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 7h11a3 3 0 0 1 3 3v1a4 4 0 0 1-8 0H8"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 10h2"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></symbol>
+    <symbol id="i-island" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 20h20"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 20c-3-3-3-8 0-11 3 3 3 8 0 11Z"/></symbol>
+    <symbol id="i-beach" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 19h18M6 19c2-4 8-6 12-4"/><circle cx="17" cy="6" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-boat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 15h18l-2 5H5l-2-5ZM12 3v9M12 3l6 4-6 2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="19" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19" cy="5" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M7.4 19H14a4 4 0 0 0 0-8H10a4 4 0 0 1 0-8h1.6"/></symbol>
+    <symbol id="i-fish" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 12c3-5 9-6 14-3 2 1 4 3 4 3s-2 2-4 3c-5 3-11 2-14-3Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 12 1 8m2 4-2 4"/><circle cx="16" cy="11" r="1" fill="currentColor"/></symbol>
+    <symbol id="i-atv" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18.5" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 17h7M5.5 14l2-5h6l3 5M13 9l1-3h3"/></symbol>
+    <symbol id="i-tractor" viewBox="0 0 24 24"><circle cx="7" cy="17" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 14V8h4l2 4h5V8h2v6M13 8h3"/></symbol>
+    <symbol id="i-glass" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 4h14l-6 8v6M13 18h4M9 18h4M8 8h8"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(255,255,255,.18)" stroke="currentColor" stroke-width="1.5"/><path fill="currentColor" d="M10 8.5 16 12l-6 3.5v-7Z"/></symbol>
+    <symbol id="i-cook" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 11h13a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5ZM2 20h17M18 11a3 3 0 0 0 0-6 3 3 0 0 0-5-2 3 3 0 0 0-5 2"/></symbol>
+    <symbol id="i-lobster" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4c2 0 3 2 3 4s-1 4-3 4-3-2-3-4 1-4 3-4ZM9 8 5 5m10 3 4-3M9 12l-4 2m10-2 4 2M12 12v8m-2-2-2 2m6-2 2 2"/></symbol>
+    <symbol id="i-cocktail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16l-8 8-8-8ZM12 13v6M8 19h8M15 5l3-3"/></symbol>
+    <symbol id="i-drone" viewBox="0 0 24 24"><rect x="9" y="9" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 9 5 5m10 4 4-4M9 15l-4 4m10-4 4 4"/><circle cx="5" cy="5" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19" cy="5" r="2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 12v9h14v-9M12 8v13"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 8S10 3 7.5 4.5 9.5 8 12 8Zm0 0s2-5 4.5-3.5S14.5 8 12 8Z"/></symbol>
+    <symbol id="i-taxi" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 13l2-5h14l2 5v5h-3v-2H6v2H3v-5Z"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 5h6"/><circle cx="7" cy="16" r="1.4" fill="currentColor"/><circle cx="17" cy="16" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-8-4.7-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6.3-8 11-8 11Z"/></symbol>
+    <symbol id="i-crew" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 20a7 7 0 0 1 14 0"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1.9-.6-3.3-1.9-4.6-3.8-.5-.7-.9-1.5-.9-2.4 0-.8.4-1.2.6-1.4.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.4.5c-.1.1-.2.3-.1.5.4.8 1 1.4 1.8 1.9.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.5-.1l1.5.8c.2.1.3.2.3.4.1.3.1.6-.1.9Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap topbar">
+    <a href="#home" class="brand">
+      <img class="brand-logo" src="aquaholic-logo.png" alt="Aquaholic Adventures — Nassau, Bahamas" />
+    </a>
+    <nav class="main">
+      <a href="#home">Home</a><a href="#tours">Tours</a><a href="#fishing">Fishing</a>
+      <a href="#atv">ATV</a><a href="#charters">Charters</a>
+    </nav>
+    <div class="head-contact">
+      <a href="tel:+12424275699" class="phone"><svg><use href="#i-phone"/></svg>+1 (242) 427-5699</a>
+      <a href="#home" class="btn">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><svg><use href="#i-star"/></svg>Local Experts · 5-Star Rated</span>
+      <h1>The Ultimate<span class="big">Bahamas</span><span class="script">Adventure</span></h1>
+      <p class="lead">Swim with Pigs. Snorkel with Turtles. Explore Stunning Islands.</p>
+      <p class="sub">Make memories that last forever with Gofa's private charters and island excursions out of Nassau.</p>
+      <div class="hero-cta">
+        <a href="#tours" class="btn"><svg><use href="#i-compass"/></svg>Explore Tours</a>
+        <a href="#home" class="btn btn-outline"><svg><use href="#i-boat"/></svg>Plan My Trip</a>
+      </div>
+      <div class="badges">
+        <div class="badge"><svg><use href="#i-users"/></svg>Up to 18 Guests</div>
+        <div class="badge"><svg><use href="#i-compass"/></svg>Local Experts</div>
+        <div class="badge"><svg><use href="#i-star"/></svg>5-Star Reviews</div>
+        <div class="badge"><svg><use href="#i-badge"/></svg>Best Price Guaranteed</div>
+      </div>
+    </div>
+
+    <form class="book-card" id="bookingForm" novalidate>
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+      <h3><span class="g">Book</span> Your Adventure</h3>
+      <div class="field"><svg><use href="#i-pin"/></svg>
+        <select name="tour"><option value="">Select Tour</option><option>Turtle Snorkel &amp; Reef</option><option>Swimming with Pigs</option><option>Private Charter</option><option>ATV Adventure</option><option>Deep Sea Fishing</option></select>
+      </div>
+      <div class="field"><svg><use href="#i-cal"/></svg><input type="text" name="date" placeholder="Select Date" onfocus="(this.type='date')" /></div>
+      <div class="field"><svg><use href="#i-users"/></svg>
+        <select name="guests"><option value="">Guests</option><option>1–2</option><option>3–6</option><option>7–12</option><option>13–18</option></select>
+      </div>
+      <div class="field"><svg><use href="#i-crew"/></svg><input type="text" name="name" placeholder="Your Name" required /></div>
+      <div class="field"><svg><use href="#i-mail"/></svg><input type="email" name="email" placeholder="Your Email" required /></div>
+      <button type="submit" class="btn">Check Availability</button>
+      <div class="form-msg" id="bookingMsg" role="status"></div>
+      <div class="assur">
+        <span><svg><use href="#i-check"/></svg>Free Cancellation</span>
+        <span><svg><use href="#i-lock"/></svg>100% Secure Booking</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- TOURS -->
+<section class="tours" id="tours">
+  <div class="wrap">
+    <div class="card-row">
+
+      <a class="tcard" href="#home">
+        <img class="scene" src="TURTLES SNORKLING.jpg" alt="Snorkeling with turtles and reef fish in the Bahamas" style="object-fit:cover" />
+        <div class="ov"></div>
+        <div class="inner">
+          <h3>Turtle Snorkel<br>& Reef Experience</h3>
+          <div class="price">FROM $149</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>2.5 Hrs</span><span><svg><use href="#i-mask"/></svg>Gear</span><span><svg><use href="#i-drop"/></svg>Water</span></div>
+        </div>
+      </a>
+
+      <a class="tcard" href="#home">
+        <img class="scene" src="PIGS.jpg" alt="Swimming with pigs in the Bahamas" style="object-fit:cover" />
+        <div class="ov"></div>
+        <div class="inner">
+          <h3>Swimming<br>With Pigs</h3>
+          <div class="price">FROM $149</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>2.5 Hrs</span><span><svg><use href="#i-island"/></svg>Pig Island</span><span><svg><use href="#i-beach"/></svg>Beach</span></div>
+        </div>
+      </a>
+
+      <a class="tcard" href="#charters" id="charters">
+        <img class="scene" src="charter image.jpg" alt="Private charter boat on turquoise Bahamas water" style="object-fit:cover" />
+        <div class="ov"></div>
+        <div class="inner">
+          <h3>Private<br>Charters</h3>
+          <div class="price">FROM $1,600</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>4/8 Hrs</span><span><svg><use href="#i-users"/></svg>18 Ppl</span><span><svg><use href="#i-route"/></svg>Custom</span></div>
+        </div>
+      </a>
+
+      <a class="tcard" href="#home" id="atv">
+        <img class="scene" src="ATV.jpg" alt="ATV adventure on a Bahamas island trail" style="object-fit:cover" />
+        <div class="ov"></div>
+        <div class="inner">
+          <h3>ATV<br>Adventures</h3>
+          <div class="price">FROM $250</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>3 Hrs</span><span><svg><use href="#i-tractor"/></svg>Farm</span><span><svg><use href="#i-glass"/></svg>Rum</span></div>
+        </div>
+      </a>
+
+      <a class="tcard" href="#home" id="fishing">
+        <img class="scene" src="FISHING TRIPS.jpg" alt="Angler with a mahi-mahi catch on a Bahamas fishing charter" style="object-fit:cover" />
+        <div class="ov"></div>
+        <div class="inner">
+          <h3>Fishing<br>Trips</h3>
+          <div class="price">FROM $3,500</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>Half/Full</span><span><svg><use href="#i-users"/></svg>8 Ppl</span><span><svg><use href="#i-fish"/></svg>All Gear</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE + UPGRADES -->
+<section class="exp">
+  <div class="wrap exp-grid">
+    <div class="exp-intro">
+      <div class="ey">Experience</div>
+      <h2>The <span class="g">Adventure</span></h2>
+      <p class="d">Watch, dream and get ready for the time of your life in The Bahamas!</p>
+      <a href="#tours" class="btn"><svg><use href="#i-compass"/></svg>View All Tours</a>
+    </div>
+
+    <div class="vid-row">
+        <div class="vid" data-vid>
+          <video class="scene" src="Aerial.mp4" poster="poster-aerial.jpg" preload="none" playsinline loop></video>
+          <div class="ovl"></div><div class="play"><svg><use href="#i-play"/></svg></div><div class="lbl">Aerial View · 0:20</div>
+        </div>
+        <div class="vid" data-vid>
+          <video class="scene" src="SNorkeling.mp4" poster="poster-snorkel.jpg" preload="none" playsinline loop></video>
+          <div class="ovl"></div><div class="play"><svg><use href="#i-play"/></svg></div><div class="lbl">Snorkeling · 0:05</div>
+        </div>
+        <div class="vid" data-vid>
+          <video class="scene" src="pigs.mp4" poster="poster-pigs.jpg" preload="none" playsinline loop></video>
+          <div class="ovl"></div><div class="play"><svg><use href="#i-play"/></svg></div><div class="lbl">Swim with Pigs · 0:13</div>
+        </div>
+        <div class="vid" data-vid>
+          <video class="scene" src="atv.mp4" poster="poster-atv.jpg" preload="none" playsinline loop></video>
+          <div class="ovl"></div><div class="play"><svg><use href="#i-play"/></svg></div><div class="lbl">ATV Adventure · 0:25</div>
+        </div>
+      </div>
+
+    <div class="upsell">
+      <h3><span class="rug">Make It</span> <span class="g">Extra Special</span></h3>
+      <div class="s">Add these upgrades to your trip</div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-cook"/></svg></span><div class="t"><b>Cook What You Catch</b><small>Full-day fishing add-on</small></div></div><div class="p">+$500</div></div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-lobster"/></svg></span><div class="t"><b>Lobster Meal</b><small>Seasonal</small></div></div><div class="p">+$500</div></div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-cocktail"/></svg></span><div class="t"><b>Premium Drinks Package</b><small>All day</small></div></div><div class="p">+$100</div></div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-drone"/></svg></span><div class="t"><b>Drone Photo & Video</b><small>Cinematic memories</small></div></div><div class="p">+$250</div></div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-mask"/></svg></span><div class="t"><b>Extra Snorkel Stop</b><small>Add a reef</small></div></div><div class="p">+$75</div></div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-gift"/></svg></span><div class="t"><b>Birthday / Anniversary Setup</b><small>Make it a celebration</small></div></div><div class="p">+$150</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="contact">
+  <svg class="wave-top" viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#ffffff" d="M0,0 H1440 V44 C1150,96 850,14 560,52 C400,74 180,80 0,50 Z"/>
+    <path fill="#3fd3e0" opacity=".28" d="M0,50 C180,80 400,74 560,52 C850,14 1150,96 1440,44 V66 C1150,116 850,36 560,74 C400,94 180,100 0,70 Z"/>
+  </svg>
+  <div class="wrap feat-row">
+    <div class="feat"><span class="fi"><svg><use href="#i-taxi"/></svg></span><div><b>Free Pick Up</b><small>& drop off</small></div></div>
+    <div class="feat"><span class="fi"><svg><use href="#i-crew"/></svg></span><div><b>Professional</b><small>crew</small></div></div>
+    <div class="feat"><span class="fi"><svg><use href="#i-shield"/></svg></span><div><b>Safety</b><small>first</small></div></div>
+    <div class="feat"><span class="fi"><svg><use href="#i-star"/></svg></span><div><b>Top Rated</b><small>on Google</small></div></div>
+    <div class="feat"><span class="fi"><svg><use href="#i-heart"/></svg></span><div><b>Local & Family</b><small>owned</small></div></div>
+  </div>
+  <div class="wrap feat-foot">© 2026 Gofa Bahamas · Nassau, The Bahamas · +1 (242) 427-5699</div>
+</section>
+
+
+<a class="wa" href="https://wa.me/12424275699"><svg><use href="#i-wa"/></svg>Chat on WhatsApp</a>
+
+<script>
+(function () {
+  // ===========================================================================
+  // Web3Forms setup:  https://web3forms.com  (free, no server needed)
+  // 1. Go to web3forms.com, enter gofabahamas@gmail.com, and copy your Access Key.
+  // 2. Paste it between the quotes below, replacing YOUR_WEB3FORMS_ACCESS_KEY.
+  // That's it — submissions will be emailed to that address.
+  // ===========================================================================
+  var ACCESS_KEY = '89cffda6-9b12-4a03-8a36-5783d659d427';
+  var ENDPOINT = 'https://api.web3forms.com/submit';
+
+  // --- Experience clips: click to play inside the card ---------------------
+  var vids = document.querySelectorAll('.vid[data-vid]');
+  vids.forEach(function (card) {
+    var video = card.querySelector('video');
+    if (!video) return;
+    card.addEventListener('click', function () {
+      if (video.paused) {
+        // pause any other playing clip
+        vids.forEach(function (other) {
+          var v = other.querySelector('video');
+          if (v && v !== video && !v.paused) { v.pause(); other.classList.remove('playing'); }
+        });
+        video.play();
+        card.classList.add('playing');
+      } else {
+        video.pause();
+        card.classList.remove('playing');
+      }
+    });
+    video.addEventListener('pause', function () { card.classList.remove('playing'); });
+    video.addEventListener('play', function () { card.classList.add('playing'); });
+  });
+
+  function serialize(form) {
+    var data = {};
+    new FormData(form).forEach(function (v, k) { data[k] = v; });
+    return data;
+  }
+
+  function handle(formId, msgId, subject) {
+    var form = document.getElementById(formId);
+    if (!form) return;
+    var msg = document.getElementById(msgId);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = serialize(form);
+      if (!data.name || !data.email) {
+        msg.className = 'form-msg err';
+        msg.textContent = 'Please add your name and email.';
+        return;
+      }
+      var btn = form.querySelector('button[type="submit"]');
+      var label = btn ? btn.textContent : '';
+
+      data.access_key = ACCESS_KEY;
+      data.subject = subject;
+      data.from_name = 'Gofa Bahamas Website';
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+      msg.className = 'form-msg';
+      msg.textContent = '';
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (j.success) {
+            msg.className = 'form-msg ok';
+            msg.textContent = 'Thank you! We received your request and will be in touch shortly.';
+            form.reset();
+          } else {
+            throw new Error(j.message || 'Failed');
+          }
+        })
+        .catch(function () {
+          msg.className = 'form-msg err';
+          msg.textContent = 'Sorry, something went wrong. Please try again or call us at +1 (242) 427-5699.';
+        })
+        .finally(function () {
+          if (btn) { btn.disabled = false; btn.textContent = label; }
+        });
+    });
+  }
+
+  handle('bookingForm', 'bookingMsg', 'New Booking Request - Gofa Bahamas');
+  handle('contactForm', 'contactMsg', 'New Contact Message - Gofa Bahamas');
+})();
+</script>
+
+</body>
+</html>
