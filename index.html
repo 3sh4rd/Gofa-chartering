@@ -83,6 +83,9 @@
   .field select,.field input{background:transparent;border:none;color:#eaf4ff;font-size:14px;width:100%;outline:none;font-weight:600}
   .field select option{color:#0a2b4e}
   .book-card .btn{width:100%;margin-top:6px;justify-content:center}
+  .pickup-line{display:flex;align-items:center;gap:9px;color:#cfe4f7;font-size:13px;font-weight:600;margin:2px 0 12px;cursor:pointer}
+  .pickup-line b{color:var(--gold)}
+  .pickup-line input{width:16px;height:16px;accent-color:var(--gold);flex:0 0 auto}
   .assur{display:flex;gap:18px;justify-content:center;margin-top:16px;font-size:12px;color:#bcd6ef;font-weight:600}
   .assur span{display:flex;align-items:center;gap:6px}
   .assur svg{width:15px;height:15px;color:var(--gold)}
@@ -93,7 +96,7 @@
   .sec-head .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
   .sec-head h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:44px;color:var(--navy);margin:10px 0;text-transform:uppercase;letter-spacing:1px}
   .sec-head p{color:var(--muted);font-size:16px}
-  .card-row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:-380px;position:relative;z-index:6}
+  .card-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:-380px;position:relative;z-index:6}
   .tours-head{margin-top:52px !important;margin-bottom:0 !important}
   .tcard{position:relative;border-radius:18px;overflow:hidden;min-height:360px;color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .2s}
   .tcard:hover{transform:translateY(-6px)}
@@ -209,7 +212,7 @@
   .foot .contact-line svg{width:18px;height:18px;color:var(--gold);flex:0 0 auto}
   .copyright{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:20px;text-align:center;font-size:13px;color:#7f9ac0}
 
-  .wa{position:fixed;right:22px;bottom:22px;z-index:80;background:#25d366;color:#fff;padding:14px 20px;border-radius:40px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(37,211,102,.5);cursor:pointer;transition:transform .18s}
+  .wa{position:fixed;left:22px;bottom:22px;z-index:80;background:#25d366;color:#fff;padding:14px 20px;border-radius:40px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(37,211,102,.5);cursor:pointer;transition:transform .18s}
   .wa:hover{transform:translateY(-3px)}
   .wa svg{width:22px;height:22px}
 
@@ -328,14 +331,18 @@
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
       <h3><span class="g">Book</span> Your Adventure</h3>
       <div class="field"><svg><use href="#i-pin"/></svg>
-        <select name="tour"><option value="">Select Tour</option><option>Turtle Snorkel &amp; Reef</option><option>Swimming with Pigs</option><option>Private Charter</option><option>ATV Adventure</option><option>Deep Sea Fishing</option></select>
+        <select name="tour" id="tourSelect"><option value="">Select Tour</option><option>Turtle Snorkel &amp; Swim With Pigs</option><option>Private Charter</option><option>ATV Adventure</option><option>Fishing Trip (Eat Your Catch)</option></select>
       </div>
       <div class="field"><svg><use href="#i-cal"/></svg><input type="text" name="date" placeholder="Select Date" onfocus="(this.type='date')" /></div>
+      <div class="field"><svg><use href="#i-clock"/></svg>
+        <select name="time" id="timeSelect"><option value="">Select Time</option><option>Morning</option><option>Afternoon (1:00 PM)</option></select>
+      </div>
       <div class="field"><svg><use href="#i-users"/></svg>
         <select name="guests"><option value="">Guests</option><option>1–2</option><option>3–6</option><option>7–12</option><option>13–18</option></select>
       </div>
       <div class="field"><svg><use href="#i-crew"/></svg><input type="text" name="name" placeholder="Your Name" required /></div>
       <div class="field"><svg><use href="#i-mail"/></svg><input type="email" name="email" placeholder="Your Email" required /></div>
+      <label class="pickup-line"><input type="checkbox" name="pickup" value="Yes (+$50)" /> <span>Add residence pick-up <b>+$50</b></span></label>
       <button type="submit" class="btn">Check Availability</button>
       <div class="form-msg" id="bookingMsg" role="status"></div>
       <div class="assur">
@@ -352,22 +359,12 @@
     <div class="card-row">
 
       <a class="tcard" href="#home">
-        <img class="scene" src="TURTLES SNORKLING.jpg" alt="Snorkeling with turtles and reef fish in the Bahamas" style="object-fit:cover" />
+        <img class="scene" src="TURTLES SNORKLING.jpg" alt="Turtle snorkel and swimming with pigs in the Bahamas" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
-          <h3>Turtle Snorkel<br>& Reef Experience</h3>
-          <div class="price">FROM $149</div>
-          <div class="meta"><span><svg><use href="#i-clock"/></svg>2.5 Hrs</span><span><svg><use href="#i-mask"/></svg>Gear</span><span><svg><use href="#i-drop"/></svg>Water</span></div>
-        </div>
-      </a>
-
-      <a class="tcard" href="#home">
-        <img class="scene" src="PIGS.jpg" alt="Swimming with pigs in the Bahamas" style="object-fit:cover" />
-        <div class="ov"></div>
-        <div class="inner">
-          <h3>Swimming<br>With Pigs</h3>
-          <div class="price">FROM $149</div>
-          <div class="meta"><span><svg><use href="#i-clock"/></svg>2.5 Hrs</span><span><svg><use href="#i-island"/></svg>Pig Island</span><span><svg><use href="#i-beach"/></svg>Beach</span></div>
+          <h3>Turtle Snorkel<br>&amp; Swim With Pigs</h3>
+          <div class="price">FROM $199</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>Half Day</span><span><svg><use href="#i-mask"/></svg>Turtles</span><span><svg><use href="#i-island"/></svg>Pigs</span></div>
         </div>
       </a>
 
@@ -395,9 +392,9 @@
         <img class="scene" src="FISHING TRIPS.jpg" alt="Angler with a mahi-mahi catch on a Bahamas fishing charter" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
-          <h3>Fishing<br>Trips</h3>
-          <div class="price">FROM $3,500</div>
-          <div class="meta"><span><svg><use href="#i-clock"/></svg>Half/Full</span><span><svg><use href="#i-users"/></svg>8 Ppl</span><span><svg><use href="#i-fish"/></svg>All Gear</span></div>
+          <h3>Fishing Trip<br>Eat Your Catch</h3>
+          <div class="price">$5,000 · FULL TRIP</div>
+          <div class="meta"><span><svg><use href="#i-clock"/></svg>Morning Only</span><span><svg><use href="#i-users"/></svg>8 Ppl</span><span><svg><use href="#i-cook"/></svg>Cooked</span></div>
         </div>
       </a>
 
@@ -437,6 +434,7 @@
     <div class="upsell">
       <h3><span class="rug">Make It</span> <span class="g">Extra Special</span></h3>
       <div class="s">Add these upgrades to your trip</div>
+      <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-taxi"/></svg></span><div class="t"><b>Residence Pick-Up</b><small>Available on every tour</small></div></div><div class="p">+$50</div></div>
       <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-cook"/></svg></span><div class="t"><b>Cook What You Catch</b><small>Full-day fishing add-on</small></div></div><div class="p">+$500</div></div>
       <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-lobster"/></svg></span><div class="t"><b>Lobster Meal</b><small>Seasonal</small></div></div><div class="p">+$500</div></div>
       <div class="up-item"><div class="l"><span class="ib"><svg><use href="#i-cocktail"/></svg></span><div class="t"><b>Premium Drinks Package</b><small>All day</small></div></div><div class="p">+$100</div></div>
@@ -500,6 +498,18 @@
     video.addEventListener('play', function () { card.classList.add('playing'); });
   });
 
+  // --- Fishing trips are morning-only; other tours offer morning or 1pm ----
+  var tourSel = document.getElementById('tourSelect');
+  var timeSel = document.getElementById('timeSelect');
+  if (tourSel && timeSel) {
+    var aftOpt = Array.prototype.filter.call(timeSel.options, function (o) { return /Afternoon/.test(o.text); })[0];
+    tourSel.addEventListener('change', function () {
+      var isFishing = /Fishing/.test(tourSel.value);
+      if (aftOpt) aftOpt.disabled = isFishing;
+      if (isFishing && /Afternoon/.test(timeSel.value)) timeSel.value = 'Morning';
+    });
+  }
+
   function serialize(form) {
     var data = {};
     new FormData(form).forEach(function (v, k) { data[k] = v; });
@@ -556,6 +566,26 @@
 
   handle('bookingForm', 'bookingMsg', 'New Booking Request - Gofa Bahamas');
   handle('contactForm', 'contactMsg', 'New Contact Message - Gofa Bahamas');
+})();
+</script>
+
+<!-- ==========================================================================
+     LIVE CHAT (Tawk.to) — lets the admin chat with customers on the site.
+     SETUP (free): 1) Sign up at https://tawk.to  2) Add a "Property" for your site
+     3) Copy your widget embed link (Administration > Channels > Chat Widget) — it
+        looks like https://embed.tawk.to/XXXXXXXX/YYYYYYYY
+     4) Replace YOUR_TAWK_PROPERTY_ID/YOUR_TAWK_WIDGET_ID below with those two codes.
+     You (the admin) reply from the tawk.to dashboard or mobile app.
+     ========================================================================== -->
+<script type="text/javascript">
+var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+(function () {
+  var TAWK_SRC = 'https://embed.tawk.to/YOUR_TAWK_PROPERTY_ID/YOUR_TAWK_WIDGET_ID';
+  if (TAWK_SRC.indexOf('YOUR_TAWK') !== -1) return; // not configured yet — skip
+  var s1 = document.createElement('script'), s0 = document.getElementsByTagName('script')[0];
+  s1.async = true; s1.src = TAWK_SRC; s1.charset = 'UTF-8';
+  s1.setAttribute('crossorigin', '*');
+  s0.parentNode.insertBefore(s1, s0);
 })();
 </script>
 
