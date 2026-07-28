@@ -61,8 +61,8 @@
       linear-gradient(180deg,rgba(10,43,78,.15) 0%,rgba(10,43,78,0) 30%,rgba(10,43,78,.12) 100%),
       url("charter%20image.jpg");
     background-size:cover;background-position:center 40%;background-repeat:no-repeat;
-    padding:104px 0 360px;overflow:visible}
-  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start;position:relative;z-index:2}
+    padding:104px 0 400px;overflow:visible}
+  .hero-grid{display:grid;grid-template-columns:400px 1fr;gap:30px;align-items:start;position:relative;z-index:2}
   .kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);padding:6px 16px;border-radius:30px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
   .kicker svg{width:16px;height:16px;color:var(--gold)}
   .hero h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:40px;text-transform:uppercase;text-shadow:0 6px 24px rgba(0,0,0,.35);letter-spacing:1px}
@@ -75,7 +75,7 @@
   .badge{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
   .badge svg{width:24px;height:24px;color:var(--gold)}
 
-  .book-card{background:linear-gradient(180deg,#0c355e,#0a2b4e);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+  .book-card{background:linear-gradient(180deg,#0c355e,#0a2b4e);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;box-shadow:var(--shadow);justify-self:end;width:100%;max-width:360px}
   .book-card h3{font-family:'Anton',Impact,sans-serif;font-weight:400;color:#fff;font-size:23px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px}
   .book-card h3 .g{color:var(--gold)}
   .field{display:flex;align-items:center;gap:12px;background:#0f4272;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#cfe4f7;font-weight:600;font-size:14px}
@@ -93,7 +93,7 @@
   .sec-head .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
   .sec-head h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:44px;color:var(--navy);margin:10px 0;text-transform:uppercase;letter-spacing:1px}
   .sec-head p{color:var(--muted);font-size:16px}
-  .card-row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:-330px;position:relative;z-index:6}
+  .card-row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:-380px;position:relative;z-index:6}
   .tours-head{margin-top:52px !important;margin-bottom:0 !important}
   .tcard{position:relative;border-radius:18px;overflow:hidden;min-height:360px;color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .2s}
   .tcard:hover{transform:translateY(-6px)}
@@ -108,13 +108,13 @@
 
   /* EXPERIENCE + UPGRADES */
   .exp{padding:12px 0 18px;background:#fff}
-  .exp-grid{display:grid;grid-template-columns:210px 1fr 330px;gap:28px;align-items:start}
+  .exp-grid{display:grid;grid-template-columns:210px 1fr 320px;gap:28px;align-items:center}
   .exp .ey{color:var(--teal);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
   .exp h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;color:var(--navy);text-transform:uppercase;letter-spacing:1px}
-  .exp h2 .g{font-family:'Kaushan Script',cursive;color:var(--teal);text-transform:none;font-size:46px}
+  .exp h2 .g{font-family:'Kaushan Script',cursive;color:var(--teal);text-transform:none;font-size:52px;display:block;margin-top:2px}
   .exp p.d{color:var(--muted);margin:16px 0 24px;font-size:16px}
   .vid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:0}
-  .vid{border-radius:14px;min-height:175px;position:relative;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:flex-end;cursor:pointer}
+  .vid{border-radius:12px;min-height:0;aspect-ratio:1/1;position:relative;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:flex-end;cursor:pointer}
   .vid .scene{position:absolute;inset:0;z-index:0;width:100%;height:100%}
   .vid video.scene{object-fit:cover;background:#0a2b4e}
   .vid .lbl{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:800;text-transform:uppercase;padding:12px;text-shadow:0 2px 6px rgba(0,0,0,.5);transition:opacity .25s}
@@ -216,6 +216,8 @@
   @media(max-width:1000px){
     nav.main{display:none}
     .hero-grid{grid-template-columns:1fr}
+    .hero{padding-bottom:60px}
+    .book-card{justify-self:stretch;max-width:none}
     .hero h1{font-size:48px}.hero h1 .yellow{font-size:54px}
     .card-row{grid-template-columns:repeat(2,1fr);margin-top:36px}
     .exp-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
