@@ -359,29 +359,19 @@
       </div>
     </div>
 
-    <form class="book-card" id="bookingForm" novalidate>
-      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+    <div class="book-card">
       <h3><span class="g">Book</span> Your Adventure</h3>
       <div class="field"><svg><use href="#i-pin"/></svg>
-        <select name="tour" id="tourSelect"><option value="">Select Tour</option><option>Turtle Snorkel &amp; Swim With Pigs</option><option>Private Charter</option><option>ATV Adventure</option><option>Fishing Trip (Eat Your Catch)</option></select>
+        <select id="tourSelect"><option value="snorkel">Turtle Snorkel &amp; Swim With Pigs</option><option value="charter">Private Charter</option><option value="atv">ATV Adventure</option><option value="fishing">Fishing Trip (Eat Your Catch)</option></select>
       </div>
-      <div class="field"><svg><use href="#i-cal"/></svg><input type="text" name="date" placeholder="Select Date" onfocus="(this.type='date')" /></div>
-      <div class="field"><svg><use href="#i-clock"/></svg>
-        <select name="time" id="timeSelect"><option value="">Select Time</option><option>Morning</option><option>Afternoon (1:00 PM)</option></select>
-      </div>
-      <div class="field"><svg><use href="#i-users"/></svg>
-        <select name="guests"><option value="">Guests</option><option>1–2</option><option>3–6</option><option>7–12</option><option>13–18</option></select>
-      </div>
-      <div class="field"><svg><use href="#i-crew"/></svg><input type="text" name="name" placeholder="Your Name" required /></div>
-      <div class="field"><svg><use href="#i-mail"/></svg><input type="email" name="email" placeholder="Your Email" required /></div>
-      <label class="pickup-line"><input type="checkbox" name="pickup" value="Yes (+$50)" /> <span>Add residence pick-up <b>+$50</b></span></label>
-      <button type="submit" class="btn">Check Availability</button>
-      <div class="form-msg" id="bookingMsg" role="status"></div>
+      <div class="field"><svg><use href="#i-cal"/></svg><input type="text" id="homeDate" placeholder="Select Date" onfocus="(this.type='date')" /></div>
+      <div class="field"><svg><use href="#i-users"/></svg><input type="number" id="homeGuests" min="1" placeholder="Number of guests" /></div>
+      <button type="button" id="homeBookBtn" class="btn">Book Now</button>
       <div class="assur">
         <span><svg><use href="#i-check"/></svg>Free Cancellation</span>
         <span><svg><use href="#i-lock"/></svg>100% Secure Booking</span>
       </div>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -390,17 +380,17 @@
   <div class="wrap">
     <div class="card-row">
 
-      <a class="tcard" href="#home">
+      <a class="tcard" href="booking.html?tour=snorkel">
         <img class="scene" src="TURTLES SNORKLING.jpg" alt="Turtle snorkel and swimming with pigs in the Bahamas" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
           <h3>Turtle Snorkel<br>&amp; Swim With Pigs</h3>
-          <div class="price">FROM $199</div>
+          <div class="price">$170 / PERSON</div>
           <div class="meta"><span><svg><use href="#i-clock"/></svg>Half Day</span><span><svg><use href="#i-mask"/></svg>Turtles</span><span><svg><use href="#i-island"/></svg>Pigs</span></div>
         </div>
       </a>
 
-      <a class="tcard" href="#charters" id="charters">
+      <a class="tcard" href="booking.html?tour=charter" id="charters">
         <img class="scene" src="charter image.jpg" alt="Private charter boat on turquoise Bahamas water" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
@@ -410,17 +400,17 @@
         </div>
       </a>
 
-      <a class="tcard" href="#home" id="atv">
+      <a class="tcard" href="booking.html?tour=atv" id="atv">
         <img class="scene" src="ATV.jpg" alt="ATV adventure on a Bahamas island trail" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
           <h3>ATV<br>Adventures</h3>
-          <div class="price">FROM $250</div>
+          <div class="price">$250 / PERSON</div>
           <div class="meta"><span><svg><use href="#i-clock"/></svg>3 Hrs</span><span><svg><use href="#i-tractor"/></svg>Farm</span><span><svg><use href="#i-glass"/></svg>Rum</span></div>
         </div>
       </a>
 
-      <a class="tcard" href="#home" id="fishing">
+      <a class="tcard" href="booking.html?tour=fishing" id="fishing">
         <img class="scene" src="FISHING TRIPS.jpg" alt="Angler with a mahi-mahi catch on a Bahamas fishing charter" style="object-fit:cover" />
         <div class="ov"></div>
         <div class="inner">
@@ -563,15 +553,17 @@
     video.addEventListener('play', function () { card.classList.add('playing'); });
   });
 
-  // --- Fishing trips are morning-only; other tours offer morning or 1pm ----
-  var tourSel = document.getElementById('tourSelect');
-  var timeSel = document.getElementById('timeSelect');
-  if (tourSel && timeSel) {
-    var aftOpt = Array.prototype.filter.call(timeSel.options, function (o) { return /Afternoon/.test(o.text); })[0];
-    tourSel.addEventListener('change', function () {
-      var isFishing = /Fishing/.test(tourSel.value);
-      if (aftOpt) aftOpt.disabled = isFishing;
-      if (isFishing && /Afternoon/.test(timeSel.value)) timeSel.value = 'Morning';
+  // --- Home "Book Now" widget -> booking page for the chosen tour ----------
+  var homeBtn = document.getElementById('homeBookBtn');
+  if (homeBtn) {
+    homeBtn.addEventListener('click', function () {
+      var tour = (document.getElementById('tourSelect') || {}).value || 'snorkel';
+      var date = (document.getElementById('homeDate') || {}).value || '';
+      var guests = (document.getElementById('homeGuests') || {}).value || '';
+      var q = 'booking.html?tour=' + encodeURIComponent(tour);
+      if (date) q += '&date=' + encodeURIComponent(date);
+      if (guests) q += '&guests=' + encodeURIComponent(guests);
+      location.href = q;
     });
   }
 

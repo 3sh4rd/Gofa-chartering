@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout | Aquaholic Adventures</title>
+<link rel="icon" href="favicon.png?v=3" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0a2b4e;--navy-deep:#071f3a;--teal:#12b6c9;--teal-light:#3fd3e0;--gold:#f6c31d;--gold-deep:#e5a70a;--muted:#5b7591;--line:#e2eef5;--ink:#0c2033}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#eef6fb;line-height:1.55}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(90deg,var(--navy-deep),var(--navy))}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;max-width:1240px;margin:0 auto}
+  .brand-logo{height:50px;width:auto;display:block}
+  header nav a{color:#e7f3ff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-left:20px}
+  .hero-strip{background:radial-gradient(120% 120% at 50% -20%,rgba(63,211,224,.5),transparent 60%),linear-gradient(180deg,#0e7fb0,#0a2b4e);color:#fff;text-align:center;padding:42px 0 36px}
+  .hero-strip h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:42px;text-transform:uppercase;letter-spacing:1px}
+  main{padding:34px 0 70px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 12px 30px rgba(7,31,58,.08);margin-bottom:20px}
+  .card h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:22px;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px}
+  .line{display:flex;justify-content:space-between;font-size:14px;color:#40597a;padding:8px 0;border-bottom:1px solid var(--line)}
+  .line b{color:var(--navy)}
+  .line.total{border-bottom:none;font-weight:800;color:var(--navy);font-size:16px;padding-top:12px}
+  .dep{background:#0c355e;color:#fff;border-radius:12px;padding:16px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+  .dep b{font-size:24px;color:var(--gold)}
+  .dep small{display:block;color:#bcd6ef;font-size:11px}
+  .pay-tabs{display:flex;gap:10px;margin-bottom:18px}
+  .pay-tabs button{flex:1;padding:12px;border:1px solid var(--line);background:#fff;border-radius:10px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--muted);text-transform:uppercase;font-size:13px;letter-spacing:.4px}
+  .pay-tabs button.active{border-color:var(--teal);color:var(--navy);background:#e7f3fb}
+  #paypal-button{min-height:48px}
+  .suncash{display:none}
+  .suncash .box{background:#f4fafd;border:1px dashed #b9d6e6;border-radius:12px;padding:16px;font-size:14px;color:#40597a}
+  .suncash .num{font-size:20px;font-weight:900;color:var(--navy);letter-spacing:.5px}
+  .btn{display:block;width:100%;text-align:center;background:var(--gold);color:var(--navy-deep);font-weight:800;text-transform:uppercase;letter-spacing:.6px;padding:15px;border:none;border-radius:12px;cursor:pointer;margin-top:14px;font-family:inherit;font-size:15px}
+  .msg{margin-top:14px;font-size:14px;font-weight:700;min-height:18px;text-align:center}
+  .msg.ok{color:#1a9e5f}.msg.bad{color:#c0392b}
+  .done{text-align:center;padding:20px}
+  .done .big{font-family:'Anton',sans-serif;font-size:34px;color:var(--navy);text-transform:uppercase}
+  .done .ref{display:inline-block;background:var(--teal);color:#fff;font-weight:800;border-radius:20px;padding:4px 14px;margin-top:8px}
+  .back{color:var(--muted);font-size:14px;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <a href="index.html"><img class="brand-logo" src="aquaholic-logo.png" alt="Aquaholic Adventures" /></a>
+    <nav><a href="booking.html" class="back">&larr; Back to booking</a></nav>
+  </div>
+</header>
+<section class="hero-strip"><div class="wrap"><h1>Checkout</h1></div></section>
+
+<main>
+  <div class="wrap" id="content">
+    <div class="card">
+      <h2>Your Booking</h2>
+      <div id="summary"></div>
+      <div class="dep"><div><small>Due now (50% deposit)</small><b id="depAmt">$0</b></div><div style="text-align:right;font-size:13px;color:#bcd6ef">Balance due<br>on trip day</div></div>
+    </div>
+
+    <div class="card" id="payCard">
+      <h2>Pay Your Deposit</h2>
+      <div class="pay-tabs">
+        <button id="tabPaypal" class="active">Card / PayPal</button>
+        <button id="tabSuncash">SunCash</button>
+      </div>
+      <div id="paypalWrap"><div id="paypal-button"></div></div>
+      <div class="suncash" id="suncashWrap">
+        <div class="box">
+          Pay your <b id="scAmt">$0</b> deposit securely with SunCash — SunCash Wallet, card, Sand Dollar or voucher.
+          You'll be taken to SunCash to complete payment, then brought right back here.
+        </div>
+        <button class="btn" id="scPay">Pay with SunCash</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+</main>
+
+<script src="supabase-config.js"></script>
+<script src="booking-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  var NOTIFY_KEY = '89cffda6-9b12-4a03-8a36-5783d659d427';
+  var b = null;
+  try { b = JSON.parse(sessionStorage.getItem('aquaBooking')); } catch(e){}
+  if (!b) { location.href='booking.html'; return; }
+
+  var sb = (window.SUPABASE_URL && window.SUPABASE_URL.indexOf('YOUR_')!==0)
+    ? supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null;
+
+  function money(n){ return '$' + Number(n).toLocaleString(undefined,{minimumFractionDigits:0}); }
+  var ref = 'AQ-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+  // render summary
+  var rows = [
+    ['Tour', b.tour],
+    ['Date', b.date + (b.time? ' · '+b.time : '')],
+    ['Guests', b.guests],
+    (b.travelers? ['Travelers', b.travelers] : null),
+    ['Name', b.name],
+    ['Email', b.email],
+    (b.phone? ['Phone', b.phone] : null),
+    (b.pickup? ['Residence pick-up', 'Yes (+$50)'] : null),
+    ['Total', money(b.total)]
+  ].filter(Boolean);
+  document.getElementById('summary').innerHTML = rows.map(function(r){
+    var cls = r[0]==='Total' ? ' total' : '';
+    return '<div class="line'+cls+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';
+  }).join('');
+  document.getElementById('depAmt').textContent = money(b.deposit);
+  document.getElementById('scAmt').textContent = money(b.deposit);
+
+  function setMsg(t, ok){ var m=document.getElementById('msg'); m.textContent=t; m.className='msg '+(ok?'ok':'bad'); }
+
+  async function insertBooking(method, status, payref){
+    if (sb){
+      var ins = await sb.from('bookings').insert({
+        ref:ref, tour:b.tour, tour_date:b.date, tour_time:b.time, guests:b.guests,
+        traveler_names:b.travelers||null, name:b.name, email:b.email, phone:b.phone||null,
+        pickup:!!b.pickup, total:b.total, deposit:b.deposit,
+        payment_method:method, payment_status:status, payment_ref:payref||null
+      });
+      if (ins.error) console.warn('booking save error', ins.error.message);
+    }
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({access_key:NOTIFY_KEY, subject:'New booking '+ref+' — '+b.tour,
+        from_name:'Aquaholic Bookings', name:b.name, email:b.email,
+        message:'NEW BOOKING ('+status.toUpperCase()+' via '+method+')\nRef: '+ref+
+          '\nTour: '+b.tour+'\nDate: '+b.date+' '+(b.time||'')+
+          '\nGuests: '+b.guests+'\nTravelers: '+(b.travelers||'-')+
+          '\nName: '+b.name+'\nEmail: '+b.email+'\nPhone: '+(b.phone||'-')+
+          '\nPickup: '+(b.pickup?'Yes':'No')+
+          '\nTotal: '+money(b.total)+'\nDeposit: '+money(b.deposit)+
+          (payref?('\nPayment ref: '+payref):'') })
+    }).catch(function(){});
+  }
+
+  async function saveBooking(method, payref, status){   // PayPal (paid on the spot)
+    await insertBooking(method, status, payref);
+    showDone(method, status);
+  }
+
+  async function payWithSunCash(){
+    var fnBase = (sb) ? window.SUPABASE_URL + '/functions/v1/suncash' : null;
+    if (!fnBase){ setMsg('SunCash isn\'t set up yet.', false); return; }
+    setMsg('Connecting to SunCash…', true);
+    document.getElementById('scPay').disabled = true;
+    await insertBooking('suncash', 'pending', null);   // record booking before redirect
+    try{
+      var r = await fetch(fnBase, { method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+window.SUPABASE_ANON_KEY,'apikey':window.SUPABASE_ANON_KEY},
+        body: JSON.stringify({ ref:ref, amount:b.deposit, name:b.name, email:b.email, mobile:b.phone||'', tour:b.tour }) });
+      var j = await r.json();
+      if (j && j.url){ location.href = j.url; }
+      else { setMsg('SunCash could not start checkout' + (j && j.error ? ': '+j.error : '') + '. Try PayPal or contact us.', false); document.getElementById('scPay').disabled=false; }
+    }catch(e){ setMsg('Could not reach SunCash. Please try again.', false); document.getElementById('scPay').disabled=false; }
+  }
+
+  function showDone(method, status){
+    document.getElementById('content').innerHTML =
+      '<div class="card done"><div class="big">Thank You!</div>'+
+      '<p style="color:#40597a;margin:10px 0">Your booking is '+(status==='paid'?'confirmed':'received')+'.'+
+      (status==='paid'?' A confirmation has been emailed to you.':' We\'ll confirm once your SunCash deposit is verified.')+'</p>'+
+      '<div class="ref">Booking '+ref+'</div>'+
+      '<p style="margin-top:18px"><a class="btn" href="index.html" style="display:inline-block;width:auto;padding:12px 26px">Back to Home</a></p></div>';
+  }
+
+  // tabs
+  document.getElementById('tabPaypal').onclick=function(){this.classList.add('active');document.getElementById('tabSuncash').classList.remove('active');document.getElementById('paypalWrap').style.display='block';document.getElementById('suncashWrap').style.display='none';};
+  document.getElementById('tabSuncash').onclick=function(){this.classList.add('active');document.getElementById('tabPaypal').classList.remove('active');document.getElementById('paypalWrap').style.display='none';document.getElementById('suncashWrap').style.display='block';};
+  document.getElementById('scPay').onclick=payWithSunCash;
+
+  // PayPal
+  if (window.PAYPAL_CLIENT_ID && window.PAYPAL_CLIENT_ID.indexOf('YOUR_')!==0){
+    var s=document.createElement('script');
+    s.src='https://www.paypal.com/sdk/js?client-id='+encodeURIComponent(window.PAYPAL_CLIENT_ID)+'&currency=USD';
+    s.onload=function(){
+      paypal.Buttons({
+        style:{color:'gold',shape:'pill',label:'pay'},
+        createOrder:function(data,actions){ return actions.order.create({purchase_units:[{amount:{value:Number(b.deposit).toFixed(2)},description:'Deposit '+ref+' - '+b.tour}]}); },
+        onApprove:function(data,actions){ return actions.order.capture().then(function(details){ saveBooking('paypal', details.id, 'paid'); }); },
+        onError:function(){ setMsg('Payment could not be completed. Please try again or use SunCash.', false); }
+      }).render('#paypal-button');
+    };
+    document.body.appendChild(s);
+  } else {
+    document.getElementById('paypalWrap').innerHTML='<div class="msg bad">Card payment isn\'t set up yet (add your PayPal Client ID). You can still use SunCash.</div>';
+  }
+})();
+</script>
+</body>
+</html>

@@ -17,6 +17,17 @@
   header .b span{color:var(--teal)}
   header .who{font-size:13px;color:#bcd6ef}
   header button{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;padding:7px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px}
+  .adminnav{display:flex;gap:6px}
+  .navbtn{background:transparent;border:1px solid rgba(255,255,255,.25);color:#cfe0f0;padding:7px 16px;border-radius:8px;font-weight:800;cursor:pointer;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .navbtn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+  .bcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 4px 14px rgba(7,31,58,.05)}
+  .bcard .h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .bcard .h b{color:var(--navy);font-size:15px}
+  .bcard .tag{font-size:11px;font-weight:800;text-transform:uppercase;border-radius:20px;padding:2px 10px}
+  .tag.paid{background:#d6f5e3;color:#1a7a49}.tag.pending{background:#fdecc8;color:#9a6b00}
+  .bcard .d{color:#5b7591;font-size:13px;margin-top:6px;line-height:1.6}
+  .blocked-row{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:8px}
+  .blocked-row button{background:#fdecec;border:none;color:#c0392b;font-weight:800;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px}
 
   /* login */
   .login{margin:auto;background:#fff;padding:32px;border-radius:16px;box-shadow:0 18px 45px rgba(7,31,58,.18);width:340px;max-width:92vw}
@@ -65,11 +76,31 @@
 
 <header id="appHeader" style="display:none">
   <div class="b">AQUAHOLIC <span>ADMIN</span></div>
+  <div class="adminnav">
+    <button class="navbtn active" data-view="chats">Chats</button>
+    <button class="navbtn" data-view="bookings">Bookings</button>
+    <button class="navbtn" data-view="blocked">Days Off</button>
+  </div>
   <div style="display:flex;align-items:center;gap:14px">
     <span class="who" id="whoami"></span>
     <button id="logoutBtn">Log out</button>
   </div>
 </header>
+
+<div id="bookingsView" style="display:none;flex:1;overflow:auto;padding:22px;max-width:1100px;margin:0 auto;width:100%">
+  <h2 style="font-family:'Anton',sans-serif;color:#0a2b4e;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Bookings</h2>
+  <div id="bookingsList"></div>
+</div>
+
+<div id="blockedView" style="display:none;flex:1;overflow:auto;padding:22px;max-width:640px;margin:0 auto;width:100%">
+  <h2 style="font-family:'Anton',sans-serif;color:#0a2b4e;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Days Off</h2>
+  <p style="color:#5b7591;font-size:14px;margin-bottom:16px">Block a date so customers can't book it. Everything not blocked is open.</p>
+  <div style="display:flex;gap:10px;margin-bottom:18px">
+    <input type="date" id="blockDate" style="flex:1;padding:11px 13px;border:1px solid #e2eef5;border-radius:10px;font-family:inherit" />
+    <button id="blockAdd" style="background:#f6c31d;border:none;color:#071f3a;font-weight:800;padding:0 20px;border-radius:10px;cursor:pointer">Block</button>
+  </div>
+  <div id="blockedList"></div>
+</div>
 
 <div class="app" id="appView" style="display:none">
   <div class="list">
@@ -123,6 +154,67 @@
     await loadConversations();
     subscribeAll();
     startPolling();
+    setupViews();
+  }
+
+  // ---- View switching: Chats / Bookings / Days Off -------------------------
+  function setupViews() {
+    var views = { chats: appView, bookings: document.getElementById('bookingsView'), blocked: document.getElementById('blockedView') };
+    document.querySelectorAll('.navbtn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.navbtn').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        var v = btn.dataset.view;
+        appView.style.display = (v==='chats') ? 'grid' : 'none';
+        views.bookings.style.display = (v==='bookings') ? 'block' : 'none';
+        views.blocked.style.display = (v==='blocked') ? 'block' : 'none';
+        if (v==='bookings') loadBookings();
+        if (v==='blocked') loadBlocked();
+      });
+    });
+    document.getElementById('blockAdd').addEventListener('click', addBlocked);
+  }
+
+  async function loadBookings() {
+    var box = document.getElementById('bookingsList');
+    box.innerHTML = '<p style="color:#5b7591">Loading…</p>';
+    var r = await sb.from('bookings').select('*').order('created_at', {ascending:false});
+    if (r.error) { box.innerHTML = '<p style="color:#c0392b">'+esc(r.error.message)+'</p>'; return; }
+    if (!(r.data||[]).length) { box.innerHTML = '<p style="color:#5b7591">No bookings yet.</p>'; return; }
+    box.innerHTML = r.data.map(function (b) {
+      return '<div class="bcard"><div class="h"><b>'+esc(b.tour)+' — '+esc(b.name)+'</b>'+
+        '<span class="tag '+(b.payment_status==='paid'?'paid':'pending')+'">'+esc(b.payment_status)+' · '+esc(b.payment_method||'')+'</span></div>'+
+        '<div class="d">Ref '+esc(b.ref||'')+' · '+esc(b.tour_date)+' '+esc(b.tour_time||'')+' · '+b.guests+' guests'+
+        (b.traveler_names?('<br>Travelers: '+esc(b.traveler_names)):'')+
+        '<br>'+esc(b.email)+(b.phone?(' · '+esc(b.phone)):'')+(b.pickup?' · pickup':'')+
+        '<br>Total $'+b.total+' · Deposit paid $'+b.deposit+'</div></div>';
+    }).join('');
+  }
+
+  async function loadBlocked() {
+    var box = document.getElementById('blockedList');
+    box.innerHTML = '<p style="color:#5b7591">Loading…</p>';
+    var r = await sb.from('blocked_dates').select('*').order('d', {ascending:true});
+    if (r.error) { box.innerHTML = '<p style="color:#c0392b">'+esc(r.error.message)+'</p>'; return; }
+    if (!(r.data||[]).length) { box.innerHTML = '<p style="color:#5b7591">No days blocked.</p>'; return; }
+    box.innerHTML = r.data.map(function (row) {
+      return '<div class="blocked-row"><span>'+esc(row.d)+'</span><button data-d="'+esc(row.d)+'">Unblock</button></div>';
+    }).join('');
+    box.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', async function () {
+        await sb.from('blocked_dates').delete().eq('d', b.dataset.d);
+        loadBlocked();
+      });
+    });
+  }
+
+  async function addBlocked() {
+    var d = document.getElementById('blockDate').value;
+    if (!d) return;
+    var r = await sb.from('blocked_dates').insert({ d: d });
+    if (r.error) { alert('Could not block: ' + r.error.message); return; }
+    document.getElementById('blockDate').value = '';
+    loadBlocked();
   }
 
   async function loadConversations() {

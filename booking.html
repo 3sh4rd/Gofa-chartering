@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book Your Trip | Aquaholic Adventures</title>
+<link rel="icon" href="favicon.png?v=3" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0a2b4e;--navy-deep:#071f3a;--teal:#12b6c9;--teal-light:#3fd3e0;--gold:#f6c31d;--gold-deep:#e5a70a;--muted:#5b7591;--line:#e2eef5;--ink:#0c2033}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat',sans-serif;color:var(--ink);background:#eef6fb;line-height:1.55}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(90deg,var(--navy-deep),var(--navy))}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;max-width:1240px;margin:0 auto}
+  .brand-logo{height:50px;width:auto;display:block}
+  header nav a{color:#e7f3ff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-left:20px}
+  header nav a:hover{color:var(--gold)}
+  .hero-strip{background:radial-gradient(120% 120% at 50% -20%,rgba(63,211,224,.5),transparent 60%),linear-gradient(180deg,#0e7fb0,#0a2b4e);color:#fff;text-align:center;padding:46px 0 40px}
+  .hero-strip .ey{color:var(--teal-light);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:13px}
+  .hero-strip h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:46px;text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+  main{padding:36px 0 70px}
+  .grid{display:grid;grid-template-columns:1.4fr .9fr;gap:24px;align-items:start}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 12px 30px rgba(7,31,58,.08)}
+  .card h2{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:24px;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:18px}
+  label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px}
+  input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;color:var(--ink);background:#fff}
+  input:focus,select:focus{outline:none;border-color:var(--teal)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .pickup{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
+  .pickup input{width:18px;height:18px;accent-color:var(--gold)}
+  .pickup b{color:var(--gold-deep)}
+  #travelers{margin-top:6px}
+  #travelers .tv{margin-bottom:8px}
+  .note{font-size:12px;color:var(--muted);margin-top:6px}
+  .avail{margin-top:10px;font-size:13px;font-weight:700;min-height:18px}
+  .avail.ok{color:#1a9e5f}.avail.bad{color:#c0392b}
+  /* summary */
+  .sum .line{display:flex;justify-content:space-between;font-size:14px;color:#40597a;padding:7px 0;border-bottom:1px solid var(--line)}
+  .sum .line.total{border-bottom:none;font-size:16px;font-weight:800;color:var(--navy);padding-top:12px}
+  .sum .dep{background:#0c355e;color:#fff;border-radius:12px;padding:14px 16px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+  .sum .dep b{font-size:20px;color:var(--gold)}
+  .sum .dep small{display:block;color:#bcd6ef;font-size:11px;font-weight:600}
+  .btn{display:block;width:100%;text-align:center;background:var(--gold);color:var(--navy-deep);font-weight:800;text-transform:uppercase;letter-spacing:.6px;padding:15px;border:none;border-radius:12px;cursor:pointer;margin-top:16px;font-family:inherit;font-size:15px;box-shadow:0 10px 24px rgba(246,195,29,.35)}
+  .btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+  .thumb{width:100%;height:150px;object-fit:cover;border-radius:12px;margin-bottom:16px}
+  .err{color:#c0392b;font-size:13px;font-weight:600;margin-top:10px;min-height:16px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <a href="index.html"><img class="brand-logo" src="aquaholic-logo.png" alt="Aquaholic Adventures" /></a>
+    <nav><a href="index.html">Home</a><a href="index.html#tours">Tours</a></nav>
+  </div>
+</header>
+
+<section class="hero-strip">
+  <div class="wrap"><div class="ey">Book Your Adventure</div><h1 id="pageTitle">Book Your Trip</h1></div>
+</section>
+
+<main>
+  <div class="wrap grid">
+    <div class="card">
+      <h2>Trip Details</h2>
+      <img id="thumb" class="thumb" alt="" style="display:none" />
+      <label>Tour</label>
+      <select id="tour"></select>
+
+      <div class="row2">
+        <div><label>Date</label><input type="date" id="date" /></div>
+        <div><label>Time</label><select id="time"></select></div>
+      </div>
+      <div class="avail" id="avail"></div>
+
+      <label>Number of Guests</label>
+      <input type="number" id="guests" min="1" value="1" />
+      <div class="note" id="guestNote"></div>
+
+      <div id="travelersWrap" style="display:none">
+        <label>Traveler Names (required for 5+ guests)</label>
+        <div id="travelers"></div>
+      </div>
+
+      <h2 style="margin-top:26px">Your Details</h2>
+      <label>Full Name</label><input type="text" id="name" placeholder="Your name" />
+      <div class="row2">
+        <div><label>Email</label><input type="email" id="email" placeholder="you@email.com" /></div>
+        <div><label>Phone</label><input type="tel" id="phone" placeholder="Phone" /></div>
+      </div>
+      <label class="pickup"><input type="checkbox" id="pickup" /> <span>Add residence pick-up <b>+$50</b></span></label>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="card sum">
+      <h2>Summary</h2>
+      <div class="line"><span id="sumTour">—</span><span id="sumBase">$0</span></div>
+      <div class="line" id="sumPickupLine" style="display:none"><span>Residence pick-up</span><span>$50</span></div>
+      <div class="line total"><span>Total</span><span id="sumTotal">$0</span></div>
+      <div class="dep"><div><small>Due now (50% deposit)</small>Deposit</div><b id="sumDeposit">$0</b></div>
+      <button class="btn" id="continueBtn" disabled>Continue to Payment</button>
+      <div class="note" style="text-align:center;margin-top:10px">Balance due on the day of your trip.</div>
+    </div>
+  </div>
+</main>
+
+<script src="supabase-config.js"></script>
+<script src="booking-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  var sb = (window.SUPABASE_URL && window.SUPABASE_URL.indexOf('YOUR_') !== 0)
+    ? supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null;
+
+  var params = new URLSearchParams(location.search);
+  var tourKey = params.get('tour') || 'snorkel';
+  if (!window.TOURS[tourKey]) tourKey = 'snorkel';
+
+  var elTour=document.getElementById('tour'), elTime=document.getElementById('time'),
+      elDate=document.getElementById('date'), elGuests=document.getElementById('guests'),
+      elAvail=document.getElementById('avail'), elBtn=document.getElementById('continueBtn');
+
+  // populate tour dropdown
+  Object.keys(window.TOURS).forEach(function(k){
+    var o=document.createElement('option'); o.value=k; o.textContent=window.TOURS[k].name;
+    if(k===tourKey) o.selected=true; elTour.appendChild(o);
+  });
+
+  // min date = today
+  elDate.min = new Date().toISOString().split('T')[0];
+  // prefill from URL if provided by the home widget
+  if (params.get('date')) elDate.value = params.get('date');
+  if (params.get('guests')) elGuests.value = Math.max(1, parseInt(params.get('guests'), 10) || 1);
+
+  function money(n){ return '$' + Number(n).toLocaleString(undefined,{minimumFractionDigits:0}); }
+
+  function fillTour(){
+    var t=window.TOURS[tourKey];
+    document.getElementById('pageTitle').textContent = 'Book: ' + t.name;
+    document.getElementById('sumTour').textContent = t.name;
+    document.getElementById('guestNote').textContent =
+      (t.per==='person'? money(t.price)+' per person':'Flat rate '+money(t.price)) + ' · max '+t.max+' guests';
+    elGuests.max = t.max;
+    var thumb=document.getElementById('thumb'); thumb.src=t.img; thumb.style.display='block';
+    // times
+    elTime.innerHTML='';
+    t.times.forEach(function(tm){var o=document.createElement('option');o.textContent=tm;elTime.appendChild(o);});
+    recalc(); checkAvail();
+  }
+
+  function recalc(){
+    var g=Math.max(1,parseInt(elGuests.value||1,10));
+    var t=window.TOURS[tourKey];
+    var pickup=document.getElementById('pickup').checked;
+    var base=(t.per==='person')?t.price*g:t.price;
+    var r=window.computeTotal(tourKey,g,pickup);
+    document.getElementById('sumBase').textContent = money(base) + (t.per==='person'? ' ('+g+'×'+money(t.price)+')':'');
+    document.getElementById('sumPickupLine').style.display = pickup?'flex':'none';
+    document.getElementById('sumTotal').textContent = money(r.total);
+    document.getElementById('sumDeposit').textContent = money(r.deposit);
+    // travelers for 5+
+    var wrap=document.getElementById('travelersWrap'), box=document.getElementById('travelers');
+    if(g>=5){
+      wrap.style.display='block';
+      if(box.children.length!==g){
+        box.innerHTML='';
+        for(var i=0;i<g;i++){var inp=document.createElement('input');inp.className='tv';inp.placeholder='Traveler '+(i+1)+' full name';box.appendChild(inp);}
+      }
+    } else { wrap.style.display='none'; box.innerHTML=''; }
+    validate();
+  }
+
+  async function checkAvail(){
+    elAvail.textContent=''; elAvail.className='avail';
+    var d=elDate.value; if(!d) return;
+    if(!sb){ elAvail.textContent='Availability check unavailable (not configured).'; return; }
+    var r=await sb.from('blocked_dates').select('d').eq('d',d).maybeSingle();
+    if(r.data){ elAvail.textContent='✕ Sorry, that date is unavailable. Please choose another.'; elAvail.className='avail bad'; }
+    else { elAvail.textContent='✓ That date is available!'; elAvail.className='avail ok'; }
+    validate();
+  }
+
+  function dateAvailable(){ return elDate.value && !elAvail.classList.contains('bad'); }
+
+  function validate(){
+    var g=parseInt(elGuests.value||0,10);
+    var ok = elDate.value && dateAvailable() && g>=1 &&
+             document.getElementById('name').value.trim() &&
+             document.getElementById('email').value.trim();
+    if(g>=5){
+      var names=document.querySelectorAll('#travelers .tv');
+      names.forEach(function(n){ if(!n.value.trim()) ok=false; });
+    }
+    elBtn.disabled = !ok;
+  }
+
+  elTour.addEventListener('change', function(){ tourKey=elTour.value; fillTour(); });
+  elDate.addEventListener('change', checkAvail);
+  elGuests.addEventListener('input', recalc);
+  document.getElementById('pickup').addEventListener('change', recalc);
+  ['name','email','phone'].forEach(function(id){ document.getElementById(id).addEventListener('input', validate); });
+  document.getElementById('travelers').addEventListener('input', validate);
+
+  elBtn.addEventListener('click', function(){
+    var g=Math.max(1,parseInt(elGuests.value,10));
+    var pickup=document.getElementById('pickup').checked;
+    var r=window.computeTotal(tourKey,g,pickup);
+    var names=[]; document.querySelectorAll('#travelers .tv').forEach(function(n){names.push(n.value.trim());});
+    var booking={
+      tourKey:tourKey, tour:window.TOURS[tourKey].name,
+      date:elDate.value, time:elTime.value, guests:g,
+      travelers:names.join(', '),
+      name:document.getElementById('name').value.trim(),
+      email:document.getElementById('email').value.trim(),
+      phone:document.getElementById('phone').value.trim(),
+      pickup:pickup, total:r.total, deposit:r.deposit
+    };
+    sessionStorage.setItem('aquaBooking', JSON.stringify(booking));
+    location.href='checkout.html';
+  });
+
+  fillTour();
+})();
+</script>
+</body>
+</html>
