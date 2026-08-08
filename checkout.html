@@ -208,15 +208,23 @@
   // PayPal
   if (window.PAYPAL_CLIENT_ID && window.PAYPAL_CLIENT_ID.indexOf('YOUR_')!==0){
     var s=document.createElement('script');
-    s.src='https://www.paypal.com/sdk/js?client-id='+encodeURIComponent(window.PAYPAL_CLIENT_ID)+'&currency=USD';
+    s.src='https://www.paypal.com/sdk/js?client-id='+encodeURIComponent(window.PAYPAL_CLIENT_ID)+'&currency=USD&intent=capture';
+    function payFail(m){ document.getElementById('paypalWrap').innerHTML='<div class="msg bad">'+m+' You can pay with <b>SunCash</b> instead, or call us at +1 (242) 427-5699.</div>'; }
     s.onload=function(){
-      paypal.Buttons({
-        style:{color:'gold',shape:'pill',label:'pay'},
-        createOrder:function(data,actions){ return actions.order.create({purchase_units:[{amount:{value:Number(payAmount).toFixed(2)},description:(payFull?'Full payment ':'Deposit ')+ref+' - '+b.tour}]}); },
-        onApprove:function(data,actions){ return actions.order.capture().then(function(details){ saveBooking('paypal', details.id, 'paid'); }); },
-        onError:function(){ setMsg('Payment could not be completed. Please try again or use SunCash.', false); }
-      }).render('#paypal-button');
+      try{
+        if(!window.paypal){ payFail('PayPal didn\'t load — the Client ID looks invalid.'); return; }
+        var btns = paypal.Buttons({
+          style:{color:'gold',shape:'pill',label:'pay'},
+          createOrder:function(data,actions){ return actions.order.create({purchase_units:[{amount:{value:Number(payAmount).toFixed(2)},description:(payFull?'Full payment ':'Deposit ')+ref+' - '+b.tour}]}); },
+          onApprove:function(data,actions){ return actions.order.capture().then(function(details){ saveBooking('paypal', details.id, 'paid'); }); },
+          onError:function(err){ setMsg('Payment could not be completed. Please try again or use SunCash.', false); }
+        });
+        if(btns.isEligible && !btns.isEligible()){ payFail('PayPal isn\'t available for this account/currency yet.'); return; }
+        var p = btns.render('#paypal-button');
+        if(p && p.catch) p.catch(function(){ payFail('PayPal couldn\'t show the button.'); });
+      }catch(e){ payFail('PayPal error: '+(e && e.message ? e.message : e)+'.'); }
     };
+    s.onerror=function(){ payFail('Couldn\'t reach PayPal — the Client ID may be wrong or it\'s the wrong (Sandbox vs Live) key.'); };
     document.body.appendChild(s);
   } else {
     document.getElementById('paypalWrap').innerHTML='<div class="msg bad">Card payment isn\'t set up yet (add your PayPal Client ID). You can still use SunCash.</div>';
