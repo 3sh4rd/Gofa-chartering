@@ -25,6 +25,11 @@
   .bcard .h b{color:var(--navy);font-size:15px}
   .bcard .tag{font-size:11px;font-weight:800;text-transform:uppercase;border-radius:20px;padding:2px 10px}
   .tag.paid{background:#d6f5e3;color:#1a7a49}.tag.pending{background:#fdecc8;color:#9a6b00}
+  .bkactions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .bkbtn{background:#1a9e5f;border:none;color:#fff;font-weight:800;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:12px}
+  .bkbtn:hover{filter:brightness(1.05)}
+  .bkbtn.undo{background:#eef1f5;color:#5b7591}
+  .bkbtn:disabled{opacity:.6;cursor:default}
   .bcard .d{color:#5b7591;font-size:13px;margin-top:6px;line-height:1.6}
   .blocked-row{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:8px}
   .blocked-row button{background:#fdecec;border:none;color:#c0392b;font-weight:800;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px}
@@ -182,13 +187,25 @@
     if (r.error) { box.innerHTML = '<p style="color:#c0392b">'+esc(r.error.message)+'</p>'; return; }
     if (!(r.data||[]).length) { box.innerHTML = '<p style="color:#5b7591">No bookings yet.</p>'; return; }
     box.innerHTML = r.data.map(function (b) {
+      var isPaid = b.payment_status === 'paid';
+      var btn = isPaid
+        ? '<button class="bkbtn undo" data-id="'+b.id+'" data-to="pending">Mark Pending</button>'
+        : '<button class="bkbtn" data-id="'+b.id+'" data-to="paid">Mark as Paid</button>';
       return '<div class="bcard"><div class="h"><b>'+esc(b.tour)+' — '+esc(b.name)+'</b>'+
-        '<span class="tag '+(b.payment_status==='paid'?'paid':'pending')+'">'+esc(b.payment_status)+' · '+esc(b.payment_method||'')+'</span></div>'+
+        '<div class="bkactions"><span class="tag '+(isPaid?'paid':'pending')+'">'+esc(b.payment_status)+' · '+esc(b.payment_method||'')+'</span>'+btn+'</div></div>'+
         '<div class="d">Ref '+esc(b.ref||'')+' · '+esc(b.tour_date)+' '+esc(b.tour_time||'')+' · '+b.guests+' guests'+
         (b.traveler_names?('<br>Travelers: '+esc(b.traveler_names)):'')+
         '<br>'+esc(b.email)+(b.phone?(' · '+esc(b.phone)):'')+(b.pickup?' · pickup':'')+
         '<br>Total $'+b.total+' · Deposit paid $'+b.deposit+'</div></div>';
     }).join('');
+    box.querySelectorAll('.bkbtn').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        btn.disabled = true; btn.textContent = 'Saving…';
+        var u = await sb.from('bookings').update({ payment_status: btn.dataset.to }).eq('id', btn.dataset.id);
+        if (u.error) { alert('Could not update: ' + u.error.message); btn.disabled = false; }
+        loadBookings();
+      });
+    });
   }
 
   async function loadBlocked() {
