@@ -29,6 +29,11 @@
   .dep{background:#0c355e;color:#fff;border-radius:12px;padding:16px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
   .dep b{font-size:24px;color:var(--gold)}
   .dep small{display:block;color:#bcd6ef;font-size:11px}
+  .amtsel{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+  .amtsel label{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;font-weight:600;color:#40597a;cursor:pointer}
+  .amtsel label:has(input:checked){border-color:var(--teal);background:#e7f3fb;color:var(--navy)}
+  .amtsel input{width:18px;height:18px;accent-color:var(--teal)}
+  .amtsel b{margin-left:auto;color:var(--navy)}
   .pay-tabs{display:flex;gap:10px;margin-bottom:18px}
   .pay-tabs button{flex:1;padding:12px;border:1px solid var(--line);background:#fff;border-radius:10px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--muted);text-transform:uppercase;font-size:13px;letter-spacing:.4px}
   .pay-tabs button.active{border-color:var(--teal);color:var(--navy);background:#e7f3fb}
@@ -59,11 +64,15 @@
     <div class="card">
       <h2>Your Booking</h2>
       <div id="summary"></div>
-      <div class="dep"><div><small>Due now (50% deposit)</small><b id="depAmt">$0</b></div><div style="text-align:right;font-size:13px;color:#bcd6ef">Balance due<br>on trip day</div></div>
+      <div class="dep"><div><small id="depLabel">Due now (50% deposit)</small><b id="depAmt">$0</b></div><div id="depBal" style="text-align:right;font-size:13px;color:#bcd6ef">Balance due<br>on trip day</div></div>
     </div>
 
     <div class="card" id="payCard">
-      <h2>Pay Your Deposit</h2>
+      <h2>Payment</h2>
+      <div class="amtsel">
+        <label><input type="radio" name="amt" value="deposit" checked> Pay 50% deposit — <b id="amtDep">$0</b></label>
+        <label><input type="radio" name="amt" value="full"> Pay in full — <b id="amtFull">$0</b></label>
+      </div>
       <div class="pay-tabs">
         <button id="tabPaypal" class="active">Card / PayPal</button>
         <button id="tabSuncash">SunCash</button>
@@ -113,8 +122,26 @@
     var cls = r[0]==='Total' ? ' total' : '';
     return '<div class="line'+cls+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';
   }).join('');
-  document.getElementById('depAmt').textContent = money(b.deposit);
-  document.getElementById('scAmt').textContent = money(b.deposit);
+  // amount to pay now: deposit (default) or full total
+  var payAmount = b.deposit;
+  var payFull = false;
+  document.getElementById('amtDep').textContent = money(b.deposit);
+  document.getElementById('amtFull').textContent = money(b.total);
+
+  function refreshAmount(){
+    document.getElementById('depAmt').textContent = money(payAmount);
+    document.getElementById('scAmt').textContent = money(payAmount);
+    document.getElementById('depLabel').textContent = payFull ? 'Paying in full' : 'Due now (50% deposit)';
+    document.getElementById('depBal').innerHTML = payFull ? 'Paid in full<br>— nothing due later' : 'Balance due<br>on trip day';
+  }
+  Array.prototype.forEach.call(document.getElementsByName('amt'), function(radio){
+    radio.addEventListener('change', function(){
+      payFull = (radio.value === 'full');
+      payAmount = payFull ? b.total : b.deposit;
+      refreshAmount();
+    });
+  });
+  refreshAmount();
 
   function setMsg(t, ok){ var m=document.getElementById('msg'); m.textContent=t; m.className='msg '+(ok?'ok':'bad'); }
 
@@ -123,11 +150,12 @@
       var ins = await sb.from('bookings').insert({
         ref:ref, tour:b.tour, tour_date:b.date, tour_time:b.time, guests:b.guests,
         traveler_names:b.travelers||null, name:b.name, email:b.email, phone:b.phone||null,
-        pickup:!!b.pickup, total:b.total, deposit:b.deposit,
+        pickup:!!b.pickup, total:b.total, deposit:payAmount,
         payment_method:method, payment_status:status, payment_ref:payref||null
       });
       if (ins.error) console.warn('booking save error', ins.error.message);
     }
+    var payLabel = payFull ? 'PAID IN FULL' : '50% DEPOSIT';
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({access_key:NOTIFY_KEY, subject:'New booking '+ref+' — '+b.tour,
         from_name:'Aquaholic Bookings', name:b.name, email:b.email,
@@ -136,7 +164,8 @@
           '\nGuests: '+b.guests+'\nTravelers: '+(b.travelers||'-')+
           '\nName: '+b.name+'\nEmail: '+b.email+'\nPhone: '+(b.phone||'-')+
           '\nPickup: '+(b.pickup?'Yes':'No')+
-          '\nTotal: '+money(b.total)+'\nDeposit: '+money(b.deposit)+
+          '\nTotal: '+money(b.total)+'\nPaid now ('+payLabel+'): '+money(payAmount)+
+          (payFull?'':('\nBalance due on trip: '+money(b.total-payAmount)))+
           (payref?('\nPayment ref: '+payref):'') })
     }).catch(function(){});
   }
@@ -155,7 +184,7 @@
     try{
       var r = await fetch(fnBase, { method:'POST',
         headers:{'Content-Type':'application/json','Authorization':'Bearer '+window.SUPABASE_ANON_KEY,'apikey':window.SUPABASE_ANON_KEY},
-        body: JSON.stringify({ ref:ref, amount:b.deposit, name:b.name, email:b.email, mobile:b.phone||'', tour:b.tour }) });
+        body: JSON.stringify({ ref:ref, amount:payAmount, name:b.name, email:b.email, mobile:b.phone||'', tour:b.tour }) });
       var j = await r.json();
       if (j && j.url){ location.href = j.url; }
       else { setMsg('SunCash could not start checkout' + (j && j.error ? ': '+j.error : '') + '. Try PayPal or contact us.', false); document.getElementById('scPay').disabled=false; }
@@ -183,7 +212,7 @@
     s.onload=function(){
       paypal.Buttons({
         style:{color:'gold',shape:'pill',label:'pay'},
-        createOrder:function(data,actions){ return actions.order.create({purchase_units:[{amount:{value:Number(b.deposit).toFixed(2)},description:'Deposit '+ref+' - '+b.tour}]}); },
+        createOrder:function(data,actions){ return actions.order.create({purchase_units:[{amount:{value:Number(payAmount).toFixed(2)},description:(payFull?'Full payment ':'Deposit ')+ref+' - '+b.tour}]}); },
         onApprove:function(data,actions){ return actions.order.capture().then(function(details){ saveBooking('paypal', details.id, 'paid'); }); },
         onError:function(){ setMsg('Payment could not be completed. Please try again or use SunCash.', false); }
       }).render('#paypal-button');

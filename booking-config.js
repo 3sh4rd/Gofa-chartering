@@ -18,7 +18,7 @@ window.DEPOSIT_RATE = 0.5;   // 50% deposit at checkout
 /* Payment settings — fill these in.
    PayPal: developer.paypal.com > Apps & Credentials > your LIVE app > Client ID
    SunCash: the SunCash number/handle customers send their deposit to           */
-window.PAYPAL_CLIENT_ID = 'EAR6iU-LtHStN2L8X0zPY3QuY9tzGtM5DteXP8TPUMDnwjnxn-79K8NF0qo_W8yNNNKlK7LCzZIjh6fa';
+window.PAYPAL_CLIENT_ID = 'BAAPlrMLXTOF9W_bcIPne_RX1bBj3HVhXENpdLIubOviWJYRm8WdC9DP-md_1QjKTha-lp77_bxoRzCf-E';
 window.SUNCASH_NUMBER   = 'YOUR_SUNCASH_NUMBER';
 
 window.computeTotal = function (tourKey, guests, pickup) {
